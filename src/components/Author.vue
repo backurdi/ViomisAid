@@ -16,7 +16,10 @@
         data-item-description="High-quality replica of The Starry Night by the Dutch post-impressionist painter Vincent van Gogh."
         data-item-image="/assets/images/starry-night.jpg"
         data-item-name="The Starry Night"
-      >Add to cart</button>
+        data-item-payment-interval="Month"
+        data-item-payment-interval-count="2"
+        data-item-payment-trial="10"
+      >>Add to cart</button>
     </p>
   </div>
 </template>

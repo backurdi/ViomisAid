@@ -1,6 +1,6 @@
 <template>
   <g-link class="logo" to="/">
-    <span class="logo__text">{{ $static.metadata.siteName }}</span>
+    <img src="../../static/images/logo.png" alt="Viomis aid logo" />
   </g-link>
 </template>
 
@@ -14,16 +14,9 @@ query {
 
 <style lang="scss">
 .logo {
+  width: 100px;
   text-decoration: none;
   color: var(--body-color) !important;
   font-size: 0.9em;
-
-  &__image {
-    vertical-align: middle;
-    border-radius: 99px;
-    height: 40px;
-    width: 40px;
-    margin-right: 0.5em;
-  }
 }
 </style>

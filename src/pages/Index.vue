@@ -1,13 +1,15 @@
 <template>
-  <Layout :show-logo="false">
+  <Layout :show-logo="true">
     <!-- Author intro -->
     <Author :show-title="true" />
+    <DonationFor />
+    <HowToHelp />
 
     <!-- List posts -->
+    <h2>Vores projekter</h2>
     <div class="posts">
-      <PostCard v-for="edge in $page.posts.edges" :key="edge.node.id" :post="edge.node"/>
+      <PostCard v-for="edge in $page.posts.edges" :key="edge.node.id" :post="edge.node" />
     </div>
-
   </Layout>
 </template>
 
@@ -40,16 +42,38 @@ query {
 </page-query>
 
 <script>
-import Author from '~/components/Author.vue'
-import PostCard from '~/components/PostCard.vue'
+import Author from "~/components/Author.vue";
+import DonationFor from "~/components/donation-for.vue";
+import HowToHelp from "~/components/how-to-help.vue";
+import PostCard from "~/components/PostCard.vue";
 
 export default {
   components: {
     Author,
-    PostCard
+    PostCard,
+    DonationFor,
+    HowToHelp,
   },
   metaInfo: {
-    title: 'Home'
+    title: "Home",
+  },
+};
+</script>
+
+<style lang="scss" scoped>
+.posts {
+  display: flex;
+  flex-wrap: wrap;
+
+  .post-card {
+    flex: 1 0;
+    width: 20%;
+    max-height: 400px;
+    overflow: hidden;
+
+    &:not(:last-child) {
+      margin-right: 20px;
+    }
   }
 }
-</script>
+</style>

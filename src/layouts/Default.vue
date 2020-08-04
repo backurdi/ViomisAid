@@ -2,12 +2,14 @@
   <div id="app">
     <header class="header">
       <div class="header__left">
-        <Logo v-if="true" />
-        <g-link to="/about/">About us</g-link>
+        <Logo v-if="showLogo" />
       </div>
 
       <div class="header__right">
         <ToggleTheme />
+        <g-link to="/">Home</g-link>
+        <g-link to="/about/">About us</g-link>
+        <a href="#" class="action-button">Doner</a>
       </div>
     </header>
 
@@ -49,6 +51,28 @@ export default {
   padding: 0 calc(var(--space) / 2);
   top: 0;
   z-index: 10;
+  background-color: var(--bg-color);
+
+  &__right {
+    a {
+      color: var(--body-color);
+      text-decoration: none;
+    }
+    .action-button {
+      border: 1px solid var(--body-color);
+      padding: 5px 15px;
+      border-radius: 10px;
+
+      &:hover {
+        background-color: var(--body-color);
+        color: var(--bg-color);
+      }
+    }
+
+    & > *:not(:last-child) {
+      margin-right: 20px;
+    }
+  }
 
   &__left,
   &__right {
@@ -65,7 +89,7 @@ export default {
 
 .main {
   margin: 0 auto;
-  padding: 1.5vw 15px 0;
+  padding: 0 calc(var(--space) / 2);
 }
 
 .footer {

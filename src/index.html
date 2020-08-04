@@ -2,6 +2,10 @@
 <html ${htmlAttrs}>
   <head>
     ${head}
+    <link
+      rel="stylesheet"
+      href="https://cdn.snipcart.com/themes/v3.0.19/default/snipcart.css"
+    />
   </head>
   <body ${bodyAttrs}>
     <script>
@@ -11,34 +15,34 @@
         function setTheme(newTheme) {
           window.__theme = newTheme;
           preferredTheme = newTheme;
-          document.body.setAttribute('data-theme', newTheme);
+          document.body.setAttribute("data-theme", newTheme);
           window.__onThemeChange(newTheme);
         }
 
         var preferredTheme;
         try {
-          preferredTheme = localStorage.getItem('theme');
-        } catch (err) { }
+          preferredTheme = localStorage.getItem("theme");
+        } catch (err) {}
 
         window.__setPreferredTheme = function(newTheme) {
           setTheme(newTheme);
           try {
-            localStorage.setItem('theme', newTheme);
+            localStorage.setItem("theme", newTheme);
           } catch (err) {}
-        }
+        };
 
-        var darkQuery = window.matchMedia('(prefers-color-scheme: dark)');
+        var darkQuery = window.matchMedia("(prefers-color-scheme: dark)");
         darkQuery.addListener(function(e) {
-          window.__setPreferredTheme(e.matches ? 'dark' : 'light')
+          window.__setPreferredTheme(e.matches ? "dark" : "light");
         });
 
-        setTheme(preferredTheme || (darkQuery.matches ? 'dark' : 'light'));
+        setTheme(preferredTheme || (darkQuery.matches ? "dark" : "light"));
       })();
     </script>
 
     <script>
       if (window.netlifyIdentity) {
-        window.netlifyIdentity.on("init", user => {
+        window.netlifyIdentity.on("init", (user) => {
           if (!user) {
             window.netlifyIdentity.on("login", () => {
               document.location.href = "/admin/";
@@ -48,7 +52,12 @@
       }
     </script>
 
-    ${app}
-    ${scripts}
+    ${app} ${scripts}
+    <div
+      hidden
+      id="snipcart"
+      data-api-key="Y2U3Nzk1NzgtNTJjNS00YmNiLTkzZGItZTE3MmI2ZTdiNGM0NjM3MzIxNzEzNDI3MDE5NjU4"
+    ></div>
+    <script src="https://cdn.snipcart.com/themes/v3.0.19/default/snipcart.js"></script>
   </body>
 </html>

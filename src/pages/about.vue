@@ -1,5 +1,5 @@
 <template>
-  <div>Test</div>
+  <Layout :show-logo="true"></Layout>
 </template>
 
 <script>

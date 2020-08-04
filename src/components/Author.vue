@@ -10,16 +10,14 @@
       <a href="//twitter.com/suits_at">Doner</a>
       <button
         class="snipcart-add-item"
-        data-item-id="starry-night"
-        data-item-price="79.99"
-        data-item-url="/paintings/starry-night"
-        data-item-description="High-quality replica of The Starry Night by the Dutch post-impressionist painter Vincent van Gogh."
-        data-item-image="/assets/images/starry-night.jpg"
-        data-item-name="The Starry Night"
+        data-item-name="My Subscription"
+        data-item-id="subscription"
+        data-item-url="/"
+        data-item-price="20.00"
         data-item-payment-interval="Month"
         data-item-payment-interval-count="2"
         data-item-payment-trial="10"
-      >>Add to cart</button>
+      >Subscribe now!</button>
     </p>
   </div>
 </template>

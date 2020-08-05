@@ -15,8 +15,6 @@
         data-item-url="https://viosmisaid.netlify.app"
         data-item-price="20.00"
         data-item-payment-interval="Month"
-        data-item-payment-interval-count="2"
-        data-item-payment-trial="10"
       >Subscribe now!</button>
     </p>
   </div>

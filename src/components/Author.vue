@@ -12,7 +12,7 @@
         class="snipcart-add-item"
         data-item-name="My Subscription"
         data-item-id="subscription"
-        data-item-url="/"
+        data-item-url="https://viosmisaid.netlify.app"
         data-item-price="20.00"
         data-item-payment-interval="Month"
         data-item-payment-interval-count="2"

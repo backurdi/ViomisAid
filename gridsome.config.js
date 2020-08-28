@@ -28,6 +28,26 @@ module.exports = {
             create: true,
           },
         },
+        svgo: [
+          {
+            removeTitle: false,
+          },
+          {
+            prefixIds: {
+              prefix: (_, { path }) => basename(path, ".svg"),
+              delim: "-",
+            },
+          },
+          {
+            removeDesc: false,
+          },
+          {
+            removeViewBox: false,
+          },
+          {
+            sortAttrs: true,
+          },
+        ],
       },
     },
   ],

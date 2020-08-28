@@ -1,10 +1,19 @@
 <template>
-  <Layout :show-logo="true"></Layout>
+  <Layout :show-logo="true">
+    <!-- <paymentForm /> -->
+    <subPaymentForm />
+  </Layout>
 </template>
 
 <script>
-export default {};
+import paymentForm from "../components/paymentForm";
+import subPaymentForm from "../components/subscripitonPaymentForm";
+export default {
+  components: {
+    paymentForm,
+    subPaymentForm,
+  },
+};
 </script>
 
-<style>
-</style>
+<style></style>

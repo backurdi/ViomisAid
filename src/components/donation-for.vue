@@ -1,12 +1,8 @@
 <template>
   <div class="donation-for">
-    <h2>Dine donationer går til</h2>
+    <h2 class="title">Dine donationer går til</h2>
     <div class="goes-to-item-container">
-      <div
-        class="goes-to-item"
-        v-for="(doantionGoesTo, index) of donationGoesToList"
-        :key="index"
-      >
+      <div class="goes-to-item" v-for="(doantionGoesTo, index) of donationGoesToList" :key="index">
         <svg>
           <use :xlink:href="doantionGoesTo.icon" />
         </svg>
@@ -58,6 +54,10 @@ export default {
 .donation-for {
   text-align: center;
   padding: 50px 0;
+
+  .title {
+    margin-bottom: 100px;
+  }
 }
 
 .goes-to-item-container {

@@ -8,6 +8,7 @@
       <div class="header__right">
         <ToggleTheme />
         <g-link to="/">Home</g-link>
+        <g-link to="/jaria/">Jaria</g-link>
         <g-link to="/about/">About us</g-link>
         <a href="#" class="action-button">Doner</a>
       </div>

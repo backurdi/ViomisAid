@@ -8,14 +8,7 @@
 
     <p class="author__links">
       <a href="//twitter.com/suits_at">Doner</a>
-      <button
-        class="snipcart-add-item"
-        data-item-name="My Subscription"
-        data-item-id="subscription"
-        data-item-url="https://viosmisaid.netlify.app"
-        data-item-price="20.00"
-        data-item-payment-interval="Month"
-      >Subscribe now!</button>
+      <a href="//twitter.com/suits_at">Jaria</a>
     </p>
   </div>
 </template>

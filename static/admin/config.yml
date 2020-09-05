@@ -34,7 +34,7 @@ collections:
       - { label: "Description", name: "description", widget: "markdown" }
       - { label: "Body", name: "body", widget: "markdown" }
   - name: "charity" # Used in routes, e.g., /admin/collections/blog
-    label: "Charty" # Used in the UI
+    label: "Charity" # Used in the UI
     media_folder: "/static/images/uploads"
     public_folder: "../../static/images/uploads"
     folder: "content/charity" # The path to the folder where the documents are stored

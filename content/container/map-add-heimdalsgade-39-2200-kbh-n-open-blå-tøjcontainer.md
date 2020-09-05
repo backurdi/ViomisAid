@@ -1,4 +1,4 @@
 ---
-add: Heimdalsgade 39, 2200 Kbh N.
+add: Mimersgade 69, 2200 Kbh N.
 open: Blå tøjcontainer
 ---

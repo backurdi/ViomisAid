@@ -123,7 +123,7 @@ export default {
 .marker {
   width: 40px;
   height: 40px;
-  background-image: url("/assets/img/logo.png");
+  background-image: url("../../static/images/logo.png");
   background-size: cover;
   z-index: 20;
 }

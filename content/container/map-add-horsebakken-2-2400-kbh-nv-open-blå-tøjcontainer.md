@@ -1,4 +1,4 @@
 ---
-add: Horsebakken 2, 2400 Kbh NV.
+add: Horsebakken 2, 2400 København NV.
 open: "Blå tøjcontainer:"
 ---

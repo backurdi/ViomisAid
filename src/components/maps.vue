@@ -2,6 +2,14 @@
   <div id="mapContainer" class="basemap"></div>
 </template>
 
+<page-query>
+query Container {
+  container: container {
+    add
+  }
+}
+</page-query>
+
 <script>
 import mapboxgl from "mapbox-gl";
 import axios from "axios";

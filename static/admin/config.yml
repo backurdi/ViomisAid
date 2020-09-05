@@ -62,12 +62,12 @@ collections:
           required: false,
         }
       - { label: "Description", name: "description", widget: "markdown" }
-  - name: "tøjindsamling" # Used in routes, e.g., /admin/collections/blog
-    label: "Tøjindsamling" # Used in the UI
-    folder: "content/tøjindsamling" # The path to the folder where the documents are stored
+  - name: "container" # Used in routes, e.g., /admin/collections/blog
+    label: "Container" # Used in the UI
+    folder: "content/container" # The path to the folder where the documents are stored
     create: true # Allow users to create new documents in this collection
     slug: "{{slug}}" # Filename template, e.g., YYYY-MM-DD-title.md
     extension: "md"
     fields: # The fields for each document, usually in front matter
       - { label: "Addresse", name: "add", widget: "string" }
-      - { label: "Åbningstider", name: "åbningstider", widget: "string" }
+      - { label: "open", name: "open", widget: "string" }

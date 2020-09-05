@@ -2,13 +2,17 @@
   <div id="mapContainer" class="basemap"></div>
 </template>
 
-<page-query>
+<static-query>
 query Container {
-  container: container {
-    add
-  }
-}
-</page-query>
+	container: allContainer(sortBy: "date") {
+    edges {
+      node {
+        id
+        add
+        open
+      }
+    }}}
+</static-query>
 
 <script>
 import mapboxgl from "mapbox-gl";
@@ -68,7 +72,6 @@ export default {
   methods: {
     getLocationsAndPassIntoMap: function (map, locationsData) {
       locationsData.forEach((location) => {
-        console.log(location.geometry);
         // create a HTML element for each feature
         var el = document.createElement("div");
         el.className = "marker";
@@ -91,9 +94,10 @@ export default {
     },
 
     createLocationObj: function () {
+      console.log(this.$static.container.edges);
       const mappedLocations = Promise.all(
-        this.locations.map(async (location) => {
-          const locationString = location.add.split(" ").join("+");
+        this.$static.container.edges.map(async (location) => {
+          const locationString = location.node.add.split(" ").join("+");
           const locationsData = await axios.get(
             `https://api.mapbox.com/geocoding/v5/mapbox.places/${locationString}.json?limit=2&access_token=${this.accessToken}`
           );
@@ -101,8 +105,8 @@ export default {
           return {
             type: "Feature",
             properties: {
-              title: location.add,
-              description: `<strong>${location.text}</strong>`,
+              title: location.node.add,
+              description: `<strong>${location.node.open}</strong>`,
               icon: "bakery",
             },
             geometry: {

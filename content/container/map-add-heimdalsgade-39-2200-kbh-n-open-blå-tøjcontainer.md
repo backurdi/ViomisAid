@@ -1,4 +1,4 @@
 ---
-add: Mimersgade 69, 2200 Kbh N.
+add: Mimersgade 69, 2200 København N.
 open: Blå tøjcontainer
 ---

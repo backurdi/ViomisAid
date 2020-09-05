@@ -53,6 +53,14 @@ module.exports = {
         config.resolve.alias.set("@images", "@/assets/images");
       },
     },
+    {
+      // Create posts from markdown files
+      use: "@gridsome/source-filesystem",
+      options: {
+        typeName: "Container",
+        path: "content/container/*.md",
+      },
+    },
   ],
 
   transformers: {

@@ -1,4 +1,4 @@
 ---
-add: "Hadsundvej 12E Rødovre "
-åbningstider: "Alle dage 09-18 "
+add: Baggesensgade 16 2200 København N
+åbningstider: Alle dage 12-18
 ---

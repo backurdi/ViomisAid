@@ -105,7 +105,7 @@ export default {
           return {
             type: "Feature",
             properties: {
-              title: location.node.add,
+              title: `<a href="#">${location.node.add}</a>`,
               description: `<strong>${location.node.open}</strong>`,
               icon: "bakery",
             },

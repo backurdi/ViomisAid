@@ -1,9 +1,26 @@
 <template>
-  <Layout> </Layout>
+  <Layout>
+    <jariaProject jariaTitle="Test" jariaText="Test" />
+  </Layout>
 </template>
 
 <script>
-export default {};
+import jariaProject from "../components/jariaProject";
+import axios from "axios";
+
+export default {
+  components: {
+    jariaProject,
+  },
+
+  data: function() {
+    return {};
+  },
+
+  mounted: function() {},
+
+  methods: {},
+};
 </script>
 
-<style></style>
+<style lang="scss"></style>

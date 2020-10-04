@@ -8,11 +8,7 @@
     <!-- List posts -->
     <h2>Vores projekter</h2>
     <div class="posts">
-      <PostCard
-        v-for="edge in $page.posts.edges"
-        :key="edge.node.id"
-        :post="edge.node"
-      />
+      <PostCard v-for="edge in $page.posts.edges" :key="edge.node.id" :post="edge.node" />
     </div>
 
     <maps />
@@ -49,8 +45,8 @@ query {
 
 <script>
 import Author from "~/components/Author.vue";
-import DonationFor from "~/components/donation-for.vue";
-import HowToHelp from "~/components/how-to-help.vue";
+import DonationFor from "~/components/donationFor.vue";
+import HowToHelp from "~/components/howToHelp.vue";
 import PostCard from "~/components/PostCard.vue";
 import Maps from "~/components/maps.vue";
 

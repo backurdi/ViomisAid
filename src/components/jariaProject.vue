@@ -1,12 +1,16 @@
 <template>
   <div class="jaria-project">
-    <div class="jaria-project__wrapper">
-      <!-- <img src="../../static/images/hero.jpg" alt /> -->
-      <div class="jaria-project__img" />
+    <div class="jaria-project__wrapper" :class="{ reverse: index % 2 === 0 }">
+      <g-image
+        alt="Cover image"
+        v-if="jariaData.jaria_image"
+        class="jaria-project__img"
+        :src="jariaData.jaria_image"
+      />
       <div class="jaria-project__info-container">
         <div class="jaria-project__info-container__text-container">
-          <h3>{{ jariaTitle }}</h3>
-          <p>{{ jariaText }}</p>
+          <h3>{{ jariaData.title }}</h3>
+          <p>{{ jariaData.description }}</p>
         </div>
         <div class="jaria-project__info-container__pay-button">Støt</div>
       </div>
@@ -18,8 +22,11 @@
 export default {
   name: "jariaProject",
   props: {
-    jariaTitle: String,
-    jariaText: String,
+    jariaData: {},
+    index: 0,
+  },
+  mounted: function() {
+    console.log(this.jariaData);
   },
 };
 </script>
@@ -39,6 +46,7 @@ export default {
     border-radius: 5px;
     padding: 40px;
     transition: background-color 150ms, scale 150ms;
+    margin-bottom: 80px;
 
     &:hover {
       background-color: #2a5d87;
@@ -68,12 +76,25 @@ export default {
     color: #fff;
     &__text-container {
       text-align: right;
+
+      p {
+        font-size: 14px;
+        font-weight: 300;
+        color: #839eb4;
+      }
     }
     &__pay-button {
       text-align: right;
       font-size: 30px;
       opacity: 0;
       transition: opacity 150ms;
+    }
+  }
+  .reverse {
+    flex-direction: row-reverse;
+
+    .jaria-project__info-container__text-container {
+      text-align: left;
     }
   }
 }

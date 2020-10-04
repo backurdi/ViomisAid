@@ -61,6 +61,14 @@ module.exports = {
         path: "content/container/*.md",
       },
     },
+    {
+      // Create posts from markdown files
+      use: "@gridsome/source-filesystem",
+      options: {
+        typeName: "SubscriptionProjects",
+        path: "content/subscription_projects/*.md",
+      },
+    },
   ],
 
   transformers: {

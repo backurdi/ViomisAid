@@ -19,7 +19,9 @@
     </main>
 
     <footer class="footer">
-      <span class="footer__copyright">Copyright © {{ new Date().getFullYear() }}.</span>
+      <span class="footer__copyright"
+        >Copyright © {{ new Date().getFullYear() }}.</span
+      >
       <span class="footer__links">
         Powered by
         <a href="//www.suits.at">SUITS</a>
@@ -44,6 +46,11 @@ export default {
 </script>
 
 <style lang="scss">
+.page-title {
+  text-align: center;
+  font-size: 38px;
+  margin-bottom: 100px;
+}
 .header {
   display: flex;
   justify-content: space-between;

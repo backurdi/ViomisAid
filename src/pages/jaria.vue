@@ -1,8 +1,26 @@
 <template>
   <Layout>
-    <jariaProject jariaTitle="Test" jariaText="Test" />
+    <h1 class="page-title">Gør en vedvarende forskel</h1>
+    <jariaProject
+      v-for="(jariaProjectData, i) of jariaProjectsData"
+      :key="i"
+      :jariaData="jariaProjectData.node"
+      :index="i + 1"
+    />
   </Layout>
 </template>
+
+<static-query>
+query subscription_projects {
+	Container: allSubscriptionProjects(sortBy: "date") {
+    edges {
+      node {
+        jaria_image
+        title
+        description
+      }
+    }}}
+</static-query>
 
 <script>
 import jariaProject from "../components/jariaProject";
@@ -14,10 +32,14 @@ export default {
   },
 
   data: function() {
-    return {};
+    return {
+      jariaProjectsData: {},
+    };
   },
 
-  mounted: function() {},
+  mounted: function() {
+    this.jariaProjectsData = this.$static.Container.edges;
+  },
 
   methods: {},
 };

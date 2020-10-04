@@ -72,6 +72,7 @@ collections:
       - { label: "Jaria image", name: "jaria_image", widget: "image" }
       - { label: "Title", name: "title", widget: "string" }
       - { label: "Description", name: "description", widget: "string" }
+      - { label: "Price", name: "price", widget: "number" }
   - name: "container" # Used in routes, e.g., /admin/collections/blog
     label: "Container" # Used in the UI
     folder: "content/container" # The path to the folder where the documents are stored

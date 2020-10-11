@@ -1,6 +1,5 @@
 <template>
   <Layout>
-    {{campaign.title}}
   </Layout>
 </template>
 

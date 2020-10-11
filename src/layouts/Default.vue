@@ -9,7 +9,9 @@
         <ToggleTheme />
         <g-link to="/">Home</g-link>
         <g-link to="/jaria/">Jaria</g-link>
-        <g-link to="/about/">About us</g-link>
+        <g-link to="/wells/">Brønde</g-link>
+        <g-link to="/masjid/">Moske</g-link>
+        <g-link to="/about/">Om os</g-link>
         <a href="#" class="action-button">Doner</a>
       </div>
     </header>

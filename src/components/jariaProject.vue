@@ -9,7 +9,17 @@
       />
       <div class="jaria-project__info-container">
         <div class="jaria-project__info-container__text-container">
-          <h3>{{ jariaData.title }}</h3>
+          <div
+            class="jaria-project__info-container__text-container__title-container"
+          >
+            <h2 v-if="index % 2 !== 0" class="price">
+              {{ jariaData.price + " DKK" }}
+            </h2>
+            <h3>{{ jariaData.title }}</h3>
+            <h2 v-if="index % 2 === 0" class="price">
+              {{ jariaData.price + " DKK" }}
+            </h2>
+          </div>
           <p>{{ jariaData.description }}</p>
         </div>
         <div class="jaria-project__info-container__pay-button">Støt</div>
@@ -25,7 +35,10 @@ export default {
     jariaData: {},
     index: 0,
   },
-  mounted: function() {
+  data: function () {
+    return {};
+  },
+  mounted: function () {
     console.log(this.jariaData);
   },
 };
@@ -45,15 +58,21 @@ export default {
     background-color: #102b41;
     border-radius: 5px;
     padding: 40px;
-    transition: background-color 150ms, scale 150ms;
+    transition: all 150ms;
     margin-bottom: 80px;
 
     &:hover {
       background-color: #2a5d87;
       transform: scale(1.02);
+      cursor: pointer;
 
       .jaria-project__info-container__pay-button {
         opacity: 1;
+      }
+
+      &:active {
+        transform: translateY(-5px);
+        box-shadow: 0px 10px 5px 1px #697c8b;
       }
     }
   }
@@ -77,6 +96,19 @@ export default {
     &__text-container {
       text-align: right;
 
+      &__title-container {
+        display: flex;
+        justify-content: space-between;
+        margin-bottom: 20px;
+
+        .price {
+          font-size: 20px;
+          border: 1px solid;
+          padding: 5px 10px;
+          border-radius: 5px;
+        }
+      }
+
       p {
         font-size: 14px;
         font-weight: 300;
@@ -93,8 +125,13 @@ export default {
   .reverse {
     flex-direction: row-reverse;
 
-    .jaria-project__info-container__text-container {
-      text-align: left;
+    .jaria-project__info-container {
+      &__text-container {
+        text-align: left;
+      }
+      &__pay-button {
+        text-align: left;
+      }
     }
   }
 }

@@ -7,6 +7,7 @@
       :jariaData="jariaProjectData.node"
       :index="i + 1"
     />
+    <customJaria />
   </Layout>
 </template>
 
@@ -18,26 +19,29 @@ query subscription_projects {
         jaria_image
         title
         description
+        price
       }
     }}}
 </static-query>
 
 <script>
 import jariaProject from "../components/jariaProject";
+import customJaria from "../components/customJaria";
 import axios from "axios";
 
 export default {
   components: {
     jariaProject,
+    customJaria,
   },
 
-  data: function() {
+  data: function () {
     return {
       jariaProjectsData: {},
     };
   },
 
-  mounted: function() {
+  mounted: function () {
     this.jariaProjectsData = this.$static.Container.edges;
   },
 

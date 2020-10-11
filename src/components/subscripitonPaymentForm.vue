@@ -15,7 +15,7 @@ import axios from "axios";
 import { v4 as uuidv4 } from "uuid";
 export default {
   name: "subscriptionPaymentForm",
-  data: function() {
+  data: function () {
     return {
       email: "",
       plans: {},
@@ -53,7 +53,7 @@ export default {
     };
   },
   watch: {
-    showPaymentForm: function() {
+    showPaymentForm: function () {
       if (!this.showPaymentForm) {
         return 1;
       }
@@ -63,7 +63,7 @@ export default {
     showPaymentForm: Boolean,
     id: Number,
   },
-  mounted: function() {
+  mounted: function () {
     this.fetchPaymentMethods()
       .then((paymentMethods) => {
         this.configuration.paymentMethodsResponse = paymentMethods.data.result;
@@ -86,14 +86,14 @@ export default {
       });
   },
   methods: {
-    fetchPaymentMethods: function() {
+    fetchPaymentMethods: function () {
       let shopperReference;
       if (window.localStorage.customerReference) {
         shopperReference = window.localStorage.customerReference;
       }
       return axios.get(`http://localhost:3001/payment/getPaymentMethods`);
     },
-    initPaymentCheckout: function(configuration) {
+    initPaymentCheckout: function (configuration) {
       return new AdyenCheckout(configuration);
     },
 
@@ -174,11 +174,6 @@ export default {
   }
 }
 
-.payment-form-container {
-  background-color: #fff;
-  padding: 20px;
-  border-radius: 6px;
-}
 .adyen-checkout__loading-input__form {
   display: flex;
   flex-direction: column-reverse;

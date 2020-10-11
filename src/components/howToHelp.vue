@@ -3,19 +3,27 @@
     <h2 class="title">Du kan hjælpe ved at</h2>
     <div class="content-container">
       <div class="how-to-help">
-        <div class="how-to-help__item" v-for="(howToHelp, index) of howToHelpList" :key="index">
+        <div
+          class="how-to-help__item"
+          v-for="(howToHelp, index) of howToHelpList"
+          :key="index"
+        >
           <div class="how-to-help__item__text">
-            <h2 class="how-to-help__item__text__title">{{ howToHelp.title }}</h2>
-            <p class="how-to-help__item__text__paragaph">{{ howToHelp.text }}</p>
+            <h2 class="how-to-help__item__text__title">
+              {{ howToHelp.title }}
+            </h2>
+            <p class="how-to-help__item__text__paragaph">
+              {{ howToHelp.text }}
+            </p>
             <div class="cta">
               <g-link
                 class="cta__button"
                 v-for="(cta, index) of howToHelp.cta"
                 :key="index"
                 :to="cta.link"
-                :class="{cta__button__icon: cta.icon}"
+                :class="{ cta__button__icon: cta.icon }"
               >
-                <span v-if="!cta.icon">{{cta.text}}</span>
+                <span v-if="!cta.icon">{{ cta.text }}</span>
                 <span v-if="cta.icon">
                   <svg>
                     <use :xlink:href="cta.icon" />
@@ -27,7 +35,11 @@
           <div class="how-to-help__item__image">
             <div
               class="how-to-help__item__image__main"
-              :style="{ backgroundImage: `linear-gradient(120deg, rgba(102, 25, 172, 0.5), rgba(78, 195, 205, 0.5)), url(${getImgPath(howToHelp.imgName)})` }"
+              :style="{
+                backgroundImage: `linear-gradient(120deg, rgba(102, 25, 172, 0.5), rgba(78, 195, 205, 0.5)), url(${getImgPath(
+                  howToHelp.imgName
+                )})`,
+              }"
             ></div>
           </div>
         </div>
@@ -101,10 +113,14 @@ export default {
       display: flex;
       justify-content: space-between;
       height: 400px;
+      background-color: #102b41;
+      padding: 40px;
+      border-radius: 5px;
+      margin-bottom: 20px;
 
       &__image {
         &__main {
-          width: 300px;
+          width: 250px;
           height: 75%;
           border-radius: 50%;
           margin-left: 100px;

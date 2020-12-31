@@ -1,6 +1,6 @@
 <template>
   <div class="payment-form-container">
-    <form netlify>
+    <form name="payment-form" netlify>
       <input type="text" placeholder="name">
       <input type="submit" placeholder="submit">
     </form>

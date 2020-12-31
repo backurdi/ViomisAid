@@ -3,17 +3,20 @@
     <div class="custom-jaria">
       <h3>Vælg selv hvor meget du vil give</h3>
       <rangeSlider @input-change="inputChange" />
-      <button class="donate-button">Støt</button>
+      <DonerButton :donationValue="inputData" :paymentType="true"/>
     </div>
   </div>
 </template>
 
 <script>
 import rangeSlider from "./primitives/rangeslider";
+import DonerButton from "../components/primitives/donerButton";
+
 export default {
   name: "customJaria",
   components: {
     rangeSlider,
+    DonerButton
   },
   data: function () {
     return {
@@ -21,7 +24,7 @@ export default {
     };
   },
   methods: {
-    inputChange: (value) => {
+    inputChange: function(value) {
       this.inputData = value;
     },
   },

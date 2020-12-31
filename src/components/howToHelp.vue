@@ -15,13 +15,14 @@
             <p class="how-to-help__item__text__paragaph">
               {{ howToHelp.text }}
             </p>
-            <div class="cta">
+            <div class="cta-container">
+
+            <div class="cta" v-for="(cta, index) of howToHelp.cta" :key="index">
               <g-link
                 class="cta__button"
-                v-for="(cta, index) of howToHelp.cta"
-                :key="index"
                 :to="cta.link"
                 :class="{ cta__button__icon: cta.icon }"
+                v-if="cta.text!=='Doner'"
               >
                 <span v-if="!cta.icon">{{ cta.text }}</span>
                 <span v-if="cta.icon">
@@ -30,6 +31,8 @@
                   </svg>
                 </span>
               </g-link>
+              <DonerButton :donationValue="100" v-if="cta.text==='Doner'" />
+            </div>
             </div>
           </div>
           <div class="how-to-help__item__image">
@@ -50,7 +53,9 @@
 
 <script>
 const sprite = require("@/assets/sprite.svg");
+import DonerButton from "../components/primitives/donerButton"
 export default {
+  components:{DonerButton},
   data: () => {
     return {
       howToHelpList: [
@@ -137,6 +142,9 @@ export default {
         margin-right: 100px;
       }
     }
+  }
+  .cta-container{
+    display: flex;
   }
 
   .cta {

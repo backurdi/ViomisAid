@@ -13,17 +13,23 @@ export default function(Vue, { router, head, isClient, appOptions }) {
   Vue.use(Vuex);
   appOptions.store = new Vuex.Store({
     state: {
-      title: "",
+      donationValue: 0,
+      paymentType: false
     },
     mutations: {
-      paymentState({ state }, title) {
-        console.log(this.state);
-        this.state.title = title;
+      donationValue({ state }, donationValue) {
+        this.state.donationValue = donationValue;
+      },
+      paymentType({ state }, paymentType) {
+        this.state.paymentType = paymentType;
       },
     },
     actions: {
-      updateState({ commit }, paymentState) {
-        commit("paymentState", paymentState);
+      updatePaymentValueState({ commit }, paymentState) {
+        commit("donationValue", paymentState);
+      },
+      updatePaymentTypeState({ commit }, paymentState) {
+        commit("paymentType", paymentState);
       },
     },
   });

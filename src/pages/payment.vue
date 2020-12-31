@@ -49,14 +49,10 @@ export default {
   },
   methods: {},
   mounted: function () {
-    console.log(this.$store.state.title);
-    this.changeTitle();
-    console.log(this.$store.state.title);
+    this.inputValue = this.$store.state.donationValue;
+    this.checked = this.$store.state.paymentType;
   },
   methods: {
-    changeTitle: function () {
-      this.$store.dispatch("updateState", "test");
-    },
     paymentStatusChange:function (e){
       console.log(e.target);
     }

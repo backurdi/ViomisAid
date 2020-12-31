@@ -13,13 +13,15 @@
               <button class="bangladesh-pump" @click="value=values.bangladesh">Vand pumpe Bangladesh</button>
           </div>
           <h1 class="donation-amount">{{value}} DKK</h1>
-          <button>Doner</button>
+          <DonerButton :donationValue="value"/>
       </div>
   </Layout>
 </template>
 
 <script>
+import DonerButton from "../components/primitives/donerButton";
 export default {
+    components:{DonerButton},
     data:function(){
         return{
             value: 20000,

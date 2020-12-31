@@ -1,5 +1,5 @@
 <template>
-  <div class="jaria-project">
+  <div class="jaria-project" @click="goToDonationPage" >
     <div class="jaria-project__wrapper" :class="{ reverse: index % 2 === 0 }">
       <g-image
         alt="Cover image"
@@ -41,6 +41,13 @@ export default {
   mounted: function () {
     console.log(this.jariaData);
   },
+  methods:{
+    goToDonationPage:function(){
+      this.$store.dispatch("updatePaymentValueState", this.jariaData.price);
+      this.$store.dispatch("updatePaymentTypeState", true);
+      this.$router.push('/payment');
+    }
+  }
 };
 </script>
 

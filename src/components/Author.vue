@@ -7,8 +7,8 @@
     >Med få klik kan du være med til at donere mad, tøj, legetøj, rent drikkevand, medicin og meget mere.</p>
 
     <p class="author__links">
-      <a href="//twitter.com/suits_at">Doner</a>
-      <a href="//twitter.com/suits_at">Jaria</a>
+      <g-link to="/payment/">Doner</g-link>
+      <g-link to="/jaria/">Jaria</g-link>
     </p>
   </div>
 </template>

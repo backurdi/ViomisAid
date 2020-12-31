@@ -11,8 +11,9 @@
         <g-link to="/jaria/">Jaria</g-link>
         <g-link to="/wells/">Brønde</g-link>
         <g-link to="/masjid/">Moske</g-link>
+        <!-- <g-link :to="`/campaign/[${campaign.node.title}].vue`" v-for="(campaign, index) of campaigns" :key="index">{{campaign.node.title}}</g-link> -->
         <g-link to="/about/">Om os</g-link>
-        <a href="#" class="action-button">Doner</a>
+        <DonerButton :donationValue="100" />
       </div>
     </header>
 
@@ -32,9 +33,23 @@
   </div>
 </template>
 
+<static-query>
+query subscription_projects {
+	Container: allCampaign(sortBy: "date") {
+    edges {
+      node {
+        title,
+        description,
+        defaultPrice,
+        camaignImage
+      }
+    }}}
+  </static-query>
+
 <script>
 import Logo from "~/components/Logo.vue";
 import ToggleTheme from "~/components/ToggleTheme.vue";
+import DonerButton from "../components/primitives/donerButton"
 
 export default {
   props: {
@@ -43,7 +58,16 @@ export default {
   components: {
     Logo,
     ToggleTheme,
+    DonerButton
   },
+  data:function(){
+    return{
+      campaigns:[]
+    }
+  },
+  mounted:function(){
+    this.campaigns = this.$static.Container.edges;
+  }
 };
 </script>
 
@@ -67,16 +91,6 @@ export default {
     a {
       color: var(--body-color);
       text-decoration: none;
-    }
-    .action-button {
-      border: 1px solid var(--body-color);
-      padding: 5px 15px;
-      border-radius: 10px;
-
-      &:hover {
-        background-color: var(--body-color);
-        color: var(--bg-color);
-      }
     }
 
     & > *:not(:last-child) {

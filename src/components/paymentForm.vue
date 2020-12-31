@@ -1,6 +1,10 @@
 <template>
   <div class="payment-form-container">
-    <div ref="dropinContainer" id="dropin-container"></div>
+    <form netlify>
+      <input type="text" placeholder="name">
+      <input type="submit" placeholder="submit">
+    </form>
+    <!--<div ref="dropinContainer" id="dropin-container"></div>-->
   </div>
 </template>
 

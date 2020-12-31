@@ -65,6 +65,14 @@ module.exports = {
       // Create posts from markdown files
       use: "@gridsome/source-filesystem",
       options: {
+        typeName: "Campaign",
+        path: "content/campaigns/*.md",
+      },
+    },
+    {
+      // Create posts from markdown files
+      use: "@gridsome/source-filesystem",
+      options: {
         typeName: "SubscriptionProjects",
         path: "content/subscription_projects/*.md",
       },

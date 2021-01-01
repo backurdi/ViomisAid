@@ -1,7 +1,7 @@
 <template>
   <div class="payment-form-container">
-    <form class="contact-form"
-          name="contact"
+    <form class="payment-form"
+          name="payment-form"
           method="post"
           @submit.prevent="handleSubmit"
           action="/success/"

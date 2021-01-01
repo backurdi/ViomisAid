@@ -1,6 +1,6 @@
 <template>
   <div class="payment-form-container">
-    <form name="contact" netlify>
+    <form name="contact" data-netlify="true" data-netlify-honeypot="bot-field">
   <p>
     <label>Name <input type="text" name="name" /></label>
   </p>

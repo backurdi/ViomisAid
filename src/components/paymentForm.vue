@@ -1,6 +1,12 @@
 <template>
   <div class="payment-form-container">
-    <form name="contact" data-netlify="true" data-netlify-honeypot="bot-field">
+    <form class="contact-form"
+          name="contact"
+          method="post"
+          @submit.prevent="handleSubmit"
+          action="/success/"
+          data-netlify="true"
+          data-netlify-honeypot="bot-field">
   <p>
     <label>Name <input type="text" name="name" /></label>
   </p>
@@ -90,6 +96,18 @@ export default {
       });
   },
   methods: {
+    handleSubmit(){
+      fetch("/", {
+        method: "POST",
+        headers: { "Content-Type": "application/x-www-form-urlencoded" },
+        body: this.encode({
+          "form-name": e.target.getAttribute("name"),
+          ...this.form
+        })
+      })
+        .then(() => this.$router.push("/success"))
+        .catch(error => alert(error));
+    },
     fetchPaymentMethods: function () {
       let shopperReference;
       if (window.localStorage.customerReference) {

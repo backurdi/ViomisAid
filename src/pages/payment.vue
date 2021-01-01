@@ -1,6 +1,23 @@
 <template>
   <div class="payment">
     <h1 class="page-title">Mange tak for jeres støtte</h1>
+    <form class="payment-form"
+          name="payment-form"
+          method="post"
+          @submit.prevent="handleSubmit"
+          action="/success/"
+          data-netlify="true"
+          data-netlify-honeypot="bot-field">
+  <p>
+    <label>Name <input type="text" name="name" /></label>
+  </p>
+  <p>
+    <label>Email <input type="email" name="email" /></label>
+  </p>
+  <p>
+    <button type="submit">Send</button>
+  </p>
+</form>
     <div class="payment-container">
       <div class="payment-form-wrapper">
         <div v-if="!value" class="value-step">

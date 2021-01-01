@@ -1,22 +1,5 @@
 <template>
   <div class="payment-form-container">
-    <form class="payment-form"
-          name="payment-form"
-          method="post"
-          @submit.prevent="handleSubmit"
-          action="/success/"
-          data-netlify="true"
-          data-netlify-honeypot="bot-field">
-  <p>
-    <label>Name <input type="text" name="name" /></label>
-  </p>
-  <p>
-    <label>Email <input type="email" name="email" /></label>
-  </p>
-  <p>
-    <button type="submit">Send</button>
-  </p>
-</form>
     <!--<div ref="dropinContainer" id="dropin-container"></div>-->
   </div>
 </template>

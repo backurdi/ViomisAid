@@ -96,6 +96,13 @@ export default {
       });
   },
   methods: {
+    encode(data) {
+      return Object.keys(data)
+        .map(
+          key => encodeURIComponent(key) + "=" + encodeURIComponent(data[key])
+        )
+        .join("&");
+    },
     handleSubmit(e){
       fetch("/", {
         method: "POST",

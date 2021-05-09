@@ -6,7 +6,7 @@
       </div>
 
       <div class="header__right">
-        <ToggleTheme />
+        <!-- <ToggleTheme /> -->
         <g-link to="/">Home</g-link>
         <g-link to="/jaria/">Jaria</g-link>
         <g-link to="/wells/">Brønde</g-link>
@@ -48,7 +48,7 @@ query subscription_projects {
 
 <script>
 import Logo from "~/components/Logo.vue";
-import ToggleTheme from "~/components/ToggleTheme.vue";
+// import ToggleTheme from "~/components/ToggleTheme.vue";
 import DonerButton from "../components/primitives/donerButton"
 
 export default {
@@ -57,7 +57,7 @@ export default {
   },
   components: {
     Logo,
-    ToggleTheme,
+    // ToggleTheme,
     DonerButton
   },
   data:function(){
@@ -100,6 +100,7 @@ export default {
 
   &__left,
   &__right {
+    margin-top: 10px;
     display: flex;
     align-items: center;
   }

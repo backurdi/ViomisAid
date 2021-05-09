@@ -38,7 +38,8 @@ export default {
   width: 800px;
   justify-content: space-between;
   align-items: center;
-  background-color: #102b41;
+  background-color: #fff;
+  border: 1px solid #BF861A;
   border-radius: 5px;
   padding: 40px;
   transition: all 150ms;

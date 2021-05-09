@@ -39,7 +39,7 @@
             <div
               class="how-to-help__item__image__main"
               :style="{
-                backgroundImage: `linear-gradient(120deg, rgba(102, 25, 172, 0.5), rgba(78, 195, 205, 0.5)), url(${getImgPath(
+                backgroundImage: `url(${getImgPath(
                   howToHelp.imgName
                 )})`,
               }"
@@ -66,13 +66,13 @@ export default {
             "Vi har altid flere projekter i gang. Donationer i alle størelser og former kan hjælpe en i nød. Behovet for nødhjælp er konstant, så tag del ved at donere for at fremme vores projektor verden over.",
           cta: [{ text: "Doner", link: "/about" }],
         },
-        {
-          title: "Bliv en del af holdet!",
-          imgName: "bliv_medlem.jpg",
-          text:
-            "Viomis Aid har mange forskellige opgaver og roller. Du kan hjælpe med at gøre Viomis Aid større, ved at melde dig ind som frivillig.",
-          cta: [{ text: "Bliv medlem", link: "/Form" }],
-        },
+        // {
+        //   title: "Bliv en del af holdet!",
+        //   imgName: "bliv_medlem.jpg",
+        //   text:
+        //     "Viomis Aid har mange forskellige opgaver og roller. Du kan hjælpe med at gøre Viomis Aid større, ved at melde dig ind som frivillig.",
+        //   cta: [{ text: "Bliv medlem", link: "/Form" }],
+        // },
         {
           title: "Skab Opmærksomhed",
           imgName: "del.jpg",
@@ -117,30 +117,25 @@ export default {
     &__item {
       display: flex;
       justify-content: space-between;
-      height: 400px;
-      background-color: #102b41;
-      padding: 40px;
+      background-color: #ffffff;
+      border: 1px solid #BF861A;
+      padding: 20px;
       border-radius: 5px;
       margin-bottom: 20px;
 
       &__image {
+        width: 40%;
         &__main {
-          width: 250px;
-          height: 75%;
+          // width: 250px;
+          width: 100%;
           border-radius: 50%;
-          margin-left: 100px;
           background-size: cover;
         }
-      }
-    }
-
-    & > :nth-child(2) {
-      flex-direction: row-reverse;
-
-      .how-to-help__item__image__main {
-        margin-left: 0;
-        margin-right: 100px;
-      }
+        &__main:after {
+          content: "";
+          display: block;
+          padding-bottom: 100%;
+        }
     }
   }
   .cta-container{
@@ -152,8 +147,8 @@ export default {
 
     &__button {
       text-decoration: none;
-      color: white;
-      border: 1px solid white;
+      color: #000;
+      border: 1px solid #BF861A;
       padding: 8px 16px;
       margin-right: 15px;
       border-radius: 5px;
@@ -167,20 +162,21 @@ export default {
         svg {
           width: 100%;
           height: 100%;
-          fill: white;
+          fill: #BF861A;
           transition: fill 0.5s;
         }
       }
 
       &:hover {
-        background-color: var(--body-color);
-        color: var(--bg-color);
+        background-color: #000;
+        color: #fff;
 
         svg {
-          fill: var(--bg-color);
+          fill: #fff;
         }
       }
     }
   }
+}
 }
 </style>

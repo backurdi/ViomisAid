@@ -1,47 +1,33 @@
 <template>
   <div class="payment">
     <h1 class="page-title">Mange tak for jeres støtte</h1>
-    <form class="payment-form"
-          name="payment-form"
-          method="post"
-          @submit.prevent="handleSubmit"
-          action="/success/"
-          data-netlify="true"
-          data-netlify-honeypot="bot-field">
-  <p>
-    <label>Name <input type="text" name="name" /></label>
-  </p>
-  <p>
-    <label>Email <input type="email" name="email" /></label>
-  </p>
-  <p>
-    <button type="submit">Send</button>
-  </p>
-</form>
     <div class="payment-container">
       <div class="payment-form-wrapper">
         <div v-if="!value" class="value-step">
           <div class="product-select-container">
-            <b :class="{active: !checked}">en-gang</b>
+            <b :class="{ active: !checked }">en-gang</b>
             <label class="switch">
-              <input type="checkbox" v-model="checked"/>
+              <input type="checkbox" v-model="checked" />
               <span class="slider round"></span>
             </label>
-            <b :class="{active: checked}">subscription</b>
+            <b :class="{ active: checked }">subscription</b>
           </div>
           <div class="input-value-container">
-          <div class="placeholder" :data-placeholder="!checked ? 'DKK' : 'DKK/mdr'">
-          <input type="text" v-model="inputValue" />
-          </div>
-          <button @click="value = inputValue" :disabled="inputValue < 1">
-            Betal
-          </button>
+            <div
+              class="placeholder"
+              :data-placeholder="!checked ? 'DKK' : 'DKK/mdr'"
+            >
+              <input type="text" v-model="inputValue" />
+            </div>
+            <button @click="value = inputValue" :disabled="inputValue < 1">
+              Betal
+            </button>
           </div>
         </div>
         <div v-if="value" class="payment-step">
           <button @click="value = 0">Tilbage</button>
-          <payment v-if="!checked"/>
-          <subscriptionPayment v-if="checked"/>
+          <paymentForm v-if="!checked" :price="inputValue" />
+          <subscriptionPayment v-if="checked" :price="inputValue" />
         </div>
       </div>
     </div>
@@ -50,12 +36,12 @@
 
 <script>
 import subscriptionPayment from "../components/subscripitonPaymentForm";
-import payment from "../components/paymentForm";
+import paymentForm from "../components/paymentForm";
 import axios from "axios";
 export default {
   components: {
     subscriptionPayment,
-    payment,
+    paymentForm,
   },
   data: function () {
     return {
@@ -70,9 +56,9 @@ export default {
     this.checked = this.$store.state.paymentType;
   },
   methods: {
-    paymentStatusChange:function (e){
+    paymentStatusChange: function (e) {
       console.log(e.target);
-    }
+    },
   },
 };
 </script>
@@ -100,29 +86,29 @@ export default {
       margin-top: -7px;
     }
 
-    .active{
+    .active {
       color: #4ec3cd;
       border-bottom: 1px solid #4ec3cd;
     }
   }
 
-  .input-value-container{
+  .input-value-container {
     margin-top: 30px;
     display: flex;
     flex-direction: column;
     align-items: center;
 
-    input{
+    input {
       margin-bottom: 20px;
       padding: 10px 10px;
-    border: 1px solid #e4e1e1;
-    border-radius: 5px;
-    width: 258px;
-    font-weight: 500;
-    font-size: 20px;
+      border: 1px solid #e4e1e1;
+      border-radius: 5px;
+      width: 258px;
+      font-weight: 500;
+      font-size: 20px;
     }
 
-    button{
+    button {
       background: none;
       border: 1px solid #4ec3cd;
       padding: 10px 35px;
@@ -134,9 +120,9 @@ export default {
   .placeholder {
     position: relative;
     display: inline-block;
-}
+  }
 
-.placeholder::after {
+  .placeholder::after {
     position: absolute;
     right: 10px;
     top: 7px;
@@ -144,11 +130,10 @@ export default {
     pointer-events: none;
     opacity: 0.6;
     color: #000;
-}
+  }
 }
 
-.payment-step{
-
+.payment-step {
 }
 .payment-container {
   display: flex;

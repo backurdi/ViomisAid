@@ -1,75 +1,67 @@
 <!DOCTYPE html>
 <html ${htmlAttrs}>
-  <head>
-    ${head}
-    <link
-      rel="stylesheet"
-      href="https://checkoutshopper-test.adyen.com/checkoutshopper/sdk/3.13.0/adyen.css"
-      integrity="sha384-AtxcD/Ax9ZRBLJ63s/bwCMrfe/mXWt4TF7F+Vltoxo0WgAwWjVNDsfyMAgY+9nBi"
-      crossorigin="anonymous"
-    />
-    <!-- Adyen provides the SRI hash that you include as the integrity attribute. Refer to our release notes to get the SRI hash for the specific version. https://docs.adyen.com/checkout/release-notes -->
-    <link
-      href="https://fonts.googleapis.com/css?family=Open+Sans"
-      rel="stylesheet"
-    />
-    <script src="https://api.tiles.mapbox.com/mapbox-gl-js/v1.12.0/mapbox-gl.js"></script>
-    <link
-      href="https://api.tiles.mapbox.com/mapbox-gl-js/v1.12.0/mapbox-gl.css"
-      rel="stylesheet"
-    />
-  </head>
-  <body ${bodyAttrs}>
-    <script>
-      // Add dark / light detection that runs before Vue.js load. Borrowed from overreacted.io
-      (function() {
-        window.__onThemeChange = function() {};
-        function setTheme(newTheme) {
-          window.__theme = newTheme;
-          preferredTheme = newTheme;
-          document.body.setAttribute("data-theme", newTheme);
-          window.__onThemeChange(newTheme);
-        }
 
-        var preferredTheme;
-        try {
-          preferredTheme = localStorage.getItem("theme");
-        } catch (err) {}
+<head>
+  ${head}
+  <link rel="stylesheet" href="https://checkoutshopper-test.adyen.com/checkoutshopper/sdk/3.13.0/adyen.css"
+    integrity="sha384-AtxcD/Ax9ZRBLJ63s/bwCMrfe/mXWt4TF7F+Vltoxo0WgAwWjVNDsfyMAgY+9nBi" crossorigin="anonymous" />
+  <!-- Adyen provides the SRI hash that you include as the integrity attribute. Refer to our release notes to get the SRI hash for the specific version. https://docs.adyen.com/checkout/release-notes -->
+  <link href="https://fonts.googleapis.com/css?family=Open+Sans" rel="stylesheet" />
+  <script src="https://api.tiles.mapbox.com/mapbox-gl-js/v1.12.0/mapbox-gl.js"></script>
+  <script src="https://js.stripe.com/v3/"></script>
+  <link href="https://api.tiles.mapbox.com/mapbox-gl-js/v1.12.0/mapbox-gl.css" rel="stylesheet" />
+</head>
 
-        window.__setPreferredTheme = function(newTheme) {
-          setTheme(newTheme);
-          try {
-            localStorage.setItem("theme", newTheme);
-          } catch (err) {}
-        };
-
-        var darkQuery = window.matchMedia("(prefers-color-scheme: dark)");
-        darkQuery.addListener(function(e) {
-          window.__setPreferredTheme(e.matches ? "dark" : "light");
-        });
-
-        setTheme(preferredTheme || (darkQuery.matches ? "dark" : "light"));
-      })();
-    </script>
-
-    <script>
-      if (window.netlifyIdentity) {
-        window.netlifyIdentity.on("init", (user) => {
-          if (!user) {
-            window.netlifyIdentity.on("login", () => {
-              document.location.href = "/admin/";
-            });
-          }
-        });
+<body ${bodyAttrs}>
+  <script>
+    // Add dark / light detection that runs before Vue.js load. Borrowed from overreacted.io
+    (function () {
+      window.__onThemeChange = function () { };
+      function setTheme(newTheme) {
+        window.__theme = newTheme;
+        preferredTheme = newTheme;
+        document.body.setAttribute("data-theme", newTheme);
+        window.__onThemeChange(newTheme);
       }
-    </script>
 
-    ${app} ${scripts}
-    <script
-      src="https://checkoutshopper-test.adyen.com/checkoutshopper/sdk/3.13.0/adyen.js"
-      integrity="sha384-cMH19I9HPj31iL3b/lcBcpsqbieCGSLyNef+RzjS7g3h5DhP2BI6j68/ogKSQCAh"
-      crossorigin="anonymous"
-    ></script>
-    <!-- Adyen provides the SRI hash that you include as the integrity attribute. Refer to our release notes to get the SRI hash for the specific version. https://docs.adyen.com/checkout/release-notes -->
-  </body>
+      var preferredTheme;
+      try {
+        preferredTheme = localStorage.getItem("theme");
+      } catch (err) { }
+
+      window.__setPreferredTheme = function (newTheme) {
+        setTheme(newTheme);
+        try {
+          localStorage.setItem("theme", newTheme);
+        } catch (err) { }
+      };
+
+      var darkQuery = window.matchMedia("(prefers-color-scheme: dark)");
+      darkQuery.addListener(function (e) {
+        window.__setPreferredTheme(e.matches ? "dark" : "light");
+      });
+
+      setTheme(preferredTheme || (darkQuery.matches ? "dark" : "light"));
+    })();
+  </script>
+
+  <script>
+    if (window.netlifyIdentity) {
+      window.netlifyIdentity.on("init", (user) => {
+        if (!user) {
+          window.netlifyIdentity.on("login", () => {
+            document.location.href = "/admin/";
+          });
+        }
+      });
+    }
+  </script>
+
+  ${app} ${scripts}
+  <script src="https://checkoutshopper-test.adyen.com/checkoutshopper/sdk/3.13.0/adyen.js"
+    integrity="sha384-cMH19I9HPj31iL3b/lcBcpsqbieCGSLyNef+RzjS7g3h5DhP2BI6j68/ogKSQCAh"
+    crossorigin="anonymous"></script>
+  <!-- Adyen provides the SRI hash that you include as the integrity attribute. Refer to our release notes to get the SRI hash for the specific version. https://docs.adyen.com/checkout/release-notes -->
+</body>
+
 </html>

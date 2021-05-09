@@ -72,7 +72,7 @@ export default {
     svg {
       width: 45px;
       height: 45px;
-      fill: white;
+      fill: #BF861A;
     }
 
     h3 {

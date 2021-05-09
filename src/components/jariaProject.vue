@@ -62,18 +62,21 @@ export default {
     height: 250px;
     justify-content: space-between;
     align-items: center;
-    background-color: #102b41;
+    background-color: #fff;
+    border: 1px solid #BF861A;
     border-radius: 5px;
     padding: 40px;
     transition: all 150ms;
     margin-bottom: 80px;
 
     &:hover {
-      background-color: #2a5d87;
+      background-color: #fdfdfd;
       transform: scale(1.02);
       cursor: pointer;
+      box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
 
       .jaria-project__info-container__pay-button {
+        color: #BF861A;
         opacity: 1;
       }
 

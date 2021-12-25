@@ -1,15 +1,19 @@
 <template>
   <Layout :show-logo="true">
     <!-- Author intro -->
-    <Author :show-title="true" />
-    <DonationFor />
-    <HowToHelp />
+    <Hero :show-title="true" />
+    <!-- <DonationFor /> -->
+    <!-- <HowToHelp /> -->
 
     <!-- List posts -->
-    <h2>Vores projekter</h2>
+    <!-- <h2>Vores projekter</h2>
     <div class="posts">
-      <PostCard v-for="edge in $page.posts.edges" :key="edge.node.id" :post="edge.node" />
-    </div>
+      <PostCard
+        v-for="edge in $page.posts.edges"
+        :key="edge.node.id"
+        :post="edge.node"
+      />
+    </div> -->
 
     <maps />
   </Layout>
@@ -44,7 +48,7 @@ query {
 </page-query>
 
 <script>
-import Author from "~/components/Author.vue";
+import Hero from "~/components/Hero.vue";
 import DonationFor from "~/components/donationFor.vue";
 import HowToHelp from "~/components/howToHelp.vue";
 import PostCard from "~/components/PostCard.vue";
@@ -52,7 +56,7 @@ import Maps from "~/components/maps.vue";
 
 export default {
   components: {
-    Author,
+    Hero,
     PostCard,
     DonationFor,
     HowToHelp,

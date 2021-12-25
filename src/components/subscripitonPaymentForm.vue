@@ -13,15 +13,14 @@
 
 <script>
 import axios from "axios";
-import { v4 as uuidv4 } from "uuid";
 export default {
   name: "subscriptionPaymentForm",
   data: function () {
     return {
-      email:"",
-      description:"",
+      email: "",
+      description: "",
       stripe: "",
-      handler:"",
+      handler: "",
     };
   },
   props: {
@@ -34,14 +33,13 @@ export default {
       // @ts-ignore
       this.createCheckoutSession(this.price).then((data) => {
         this.stripe = Stripe(data.publicKey);
-        
+
         // Call Stripe.js method to redirect to the new Checkout page
         this.stripe
           .redirectToCheckout({
             sessionId: data.sessionId,
           })
           .then(this.handleResult);
-
       });
     },
     handleFetchResult: (result) => {
@@ -63,18 +61,19 @@ export default {
       return result.data;
     },
     createCheckoutSession: function (price) {
-        return axios
+      return axios
         .post(
           "http://localhost:3000/v1/payment/getCheckoutSubscription",
           {
             amount: price,
             // email: this.email,
-            description: this.description
+            description: this.description,
           },
           {
             headers: { "Content-Type": "application/json" },
           }
-        ).then(this.handleFetchResult);
+        )
+        .then(this.handleFetchResult);
     },
     handleResult: (result) => {
       if (result.error) {
@@ -127,5 +126,4 @@ export default {
     }
   }
 }
-
 </style>

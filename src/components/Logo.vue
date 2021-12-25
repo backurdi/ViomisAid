@@ -16,7 +16,11 @@ query {
 .logo {
   width: 100px;
   text-decoration: none;
-  color: var(--body-color) !important;
-  font-size: 0.9em;
+  background-color: var(--primary-dark-color);
+  display: flex;
+  align-items: center;
+  padding: 10px;
+  border-radius: 5px;
+  margin-top: -60px;
 }
 </style>

@@ -1,11 +1,11 @@
 <template>
   <div id="app">
-    <header class="header">
-      <div class="header__left">
+    <nav class="nav">
+      <div class="nav__left">
         <Logo v-if="showLogo" />
       </div>
 
-      <div class="header__right">
+      <div class="nav__right">
         <!-- <ToggleTheme /> -->
         <g-link to="/">Home</g-link>
         <g-link to="/jaria/">Jaria</g-link>
@@ -13,9 +13,10 @@
         <g-link to="/masjid/">Moske</g-link>
         <!-- <g-link :to="`/campaign/[${campaign.node.title}].vue`" v-for="(campaign, index) of campaigns" :key="index">{{campaign.node.title}}</g-link> -->
         <g-link to="/about/">Om os</g-link>
-        <DonerButton :donationValue="100" />
+        <DonerButton :donationValue="100" class="doner" />
+        <DonerButton :donationValue="100" class="zakat" buttonText="Zakat" />
       </div>
-    </header>
+    </nav>
 
     <main class="main">
       <slot />
@@ -25,10 +26,7 @@
       <span class="footer__copyright"
         >Copyright © {{ new Date().getFullYear() }}.</span
       >
-      <span class="footer__links">
-        Powered by
-        <a href="//www.suits.at">SUITS</a>
-      </span>
+      <span class="footer__links"> Powered by Unity dev </span>
     </footer>
   </div>
 </template>
@@ -49,7 +47,7 @@ query subscription_projects {
 <script>
 import Logo from "~/components/Logo.vue";
 // import ToggleTheme from "~/components/ToggleTheme.vue";
-import DonerButton from "../components/primitives/donerButton"
+import DonerButton from "../components/primitives/donerButton";
 
 export default {
   props: {
@@ -58,16 +56,16 @@ export default {
   components: {
     Logo,
     // ToggleTheme,
-    DonerButton
+    DonerButton,
   },
-  data:function(){
-    return{
-      campaigns:[]
-    }
+  data: function () {
+    return {
+      campaigns: [],
+    };
   },
-  mounted:function(){
+  mounted: function () {
     this.campaigns = this.$static.Container.edges;
-  }
+  },
 };
 </script>
 
@@ -77,7 +75,8 @@ export default {
   font-size: 38px;
   margin-bottom: 100px;
 }
-.header {
+.nav {
+  background-color: var(--primary-color);
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -85,7 +84,8 @@ export default {
   padding: 0 calc(var(--space) / 2);
   top: 0;
   z-index: 10;
-  background-color: var(--bg-color);
+  height: 80px;
+  margin-top: 60px;
 
   &__right {
     a {
@@ -95,6 +95,13 @@ export default {
 
     & > *:not(:last-child) {
       margin-right: 20px;
+    }
+
+    .doner {
+      background-color: var(--primary-dark-color);
+    }
+    .zakat {
+      background-color: var(--secondary-color);
     }
   }
 
@@ -114,10 +121,10 @@ export default {
 
 .main {
   margin: 0 auto;
-  padding: 0 calc(var(--space) / 2);
 }
 
 .footer {
+  color: var(--primary-dark-color);
   display: flex;
   align-items: center;
   justify-content: center;
@@ -127,10 +134,6 @@ export default {
 
   > span {
     margin: 0 0.35em;
-  }
-
-  a {
-    color: currentColor;
   }
 }
 </style>

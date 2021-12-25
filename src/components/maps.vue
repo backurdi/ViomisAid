@@ -1,5 +1,12 @@
 <template>
-  <div id="mapContainer" class="basemap"></div>
+  <div class="map-container">
+    <h3>Donere dit tøj</h3>
+    <div class="zip-code-container">
+      <p>Indtast postnummer</p>
+      <input type="text" placeholder="fx. 2200" />
+    </div>
+    <div id="mapContainer" class="basemap"></div>
+  </div>
 </template>
 
 <static-query>
@@ -41,6 +48,7 @@ export default {
     };
   },
   async mounted() {
+    console.log(this.$static.container);
     mapboxgl.accessToken = this.accessToken;
 
     const map = new mapboxgl.Map({
@@ -53,6 +61,7 @@ export default {
     this.locations = this.createLocationObj();
 
     this.locations.then((mappedLocationsArray) => {
+      console.log(this.mappedLocationsArray);
       this.getLocationsAndPassIntoMap(map, mappedLocationsArray);
     });
 
@@ -94,7 +103,6 @@ export default {
     },
 
     createLocationObj: function () {
-      console.log(this.$static.container.edges);
       const mappedLocations = Promise.all(
         this.$static.container.edges.map(async (location) => {
           const locationString = location.node.add.split(" ").join("+");
@@ -118,11 +126,44 @@ export default {
       );
       return mappedLocations;
     },
+    findCoordinatesOnZipCode() {
+      const zipEndPoint = `https://api.dataforsyningen.dk/postnumre?nr=${23122}`;
+    },
   },
 };
 </script>
 
 <style lang="scss">
+.map-container {
+  padding: 20px calc(var(--space) / 2);
+  background-color: var(--primary-color);
+  text-align: center;
+
+  h3 {
+    color: var(--body-color);
+    margin-bottom: 10px;
+  }
+}
+
+.zip-code-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding-bottom: 20px;
+
+  p {
+    margin: 0;
+    margin-right: 10px;
+  }
+
+  input {
+    height: 40px;
+    border: none;
+    padding-left: 10px;
+    border-radius: 20px;
+  }
+}
+
 .basemap {
   width: 100%;
   height: 400px;
@@ -135,6 +176,7 @@ export default {
 .marker {
   width: 40px;
   height: 40px;
+  background-color: #000;
   background-image: url("../../static/images/logo.png");
   background-size: cover;
   z-index: 20;
@@ -163,5 +205,3 @@ export default {
   z-index: 10;
 }
 </style>
-
-

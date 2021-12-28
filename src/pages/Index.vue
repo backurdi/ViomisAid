@@ -1,20 +1,6 @@
 <template>
   <Layout :show-logo="true">
-    <!-- Author intro -->
     <Hero :show-title="true" />
-    <!-- <DonationFor /> -->
-    <!-- <HowToHelp /> -->
-
-    <!-- List posts -->
-    <!-- <h2>Vores projekter</h2>
-    <div class="posts">
-      <PostCard
-        v-for="edge in $page.posts.edges"
-        :key="edge.node.id"
-        :post="edge.node"
-      />
-    </div> -->
-
     <maps />
   </Layout>
 </template>

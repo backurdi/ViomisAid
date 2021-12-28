@@ -1,13 +1,15 @@
 <template>
   <Layout>
     <h1 class="page-title">Gør en vedvarende forskel</h1>
-    <jariaProject
-      v-for="(jariaProjectData, i) of jariaProjectsData"
-      :key="i"
-      :jariaData="jariaProjectData.node"
-      :index="i + 1"
-    />
-    <customJaria />
+    <div class="jaria-container">
+      <jariaProject
+        v-for="(jariaProjectData, i) of jariaProjectsData"
+        :key="i"
+        :jariaData="jariaProjectData.node"
+        :index="i + 1"
+      />
+      <customJaria />
+    </div>
   </Layout>
 </template>
 
@@ -49,4 +51,14 @@ export default {
 };
 </script>
 
-<style lang="scss"></style>
+<style lang="scss">
+.page-title {
+  margin: 20px 0;
+}
+.jaria-container {
+  display: flex;
+  flex-direction: column;
+  width: 80%;
+  margin: 0 auto;
+}
+</style>

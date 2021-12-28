@@ -1,5 +1,5 @@
 <template>
-  <div class="jaria-project" @click="goToDonationPage" >
+  <div class="jaria-project">
     <div class="jaria-project__wrapper" :class="{ reverse: index % 2 === 0 }">
       <g-image
         alt="Cover image"
@@ -12,17 +12,19 @@
           <div
             class="jaria-project__info-container__text-container__title-container"
           >
-            <h2 v-if="index % 2 !== 0" class="price">
-              {{ jariaData.price + " DKK" }}
-            </h2>
             <h3>{{ jariaData.title }}</h3>
-            <h2 v-if="index % 2 === 0" class="price">
+            <h2 class="price" :class="{ 'price-reverse': index % 2 === 0 }">
               {{ jariaData.price + " DKK" }}
             </h2>
           </div>
           <p>{{ jariaData.description }}</p>
         </div>
-        <div class="jaria-project__info-container__pay-button">Støt</div>
+        <button
+          class="jaria-project__info-container__pay-button"
+          @click="goToDonationPage"
+        >
+          Støt
+        </button>
       </div>
     </div>
   </div>
@@ -41,13 +43,13 @@ export default {
   mounted: function () {
     console.log(this.jariaData);
   },
-  methods:{
-    goToDonationPage:function(){
+  methods: {
+    goToDonationPage: function () {
       this.$store.dispatch("updatePaymentValueState", this.jariaData.price);
       this.$store.dispatch("updatePaymentTypeState", true);
-      this.$router.push('/payment');
-    }
-  }
+      this.$router.push("/payment");
+    },
+  },
 };
 </script>
 
@@ -55,36 +57,14 @@ export default {
 .jaria-project {
   display: flex;
   justify-content: center;
+  margin-bottom: 50px;
 
   &__wrapper {
     display: flex;
-    width: 800px;
-    height: 250px;
-    justify-content: space-between;
+    width: 100%;
     align-items: center;
-    background-color: #fff;
-    border: 1px solid #BF861A;
     border-radius: 5px;
-    padding: 40px;
     transition: all 150ms;
-    margin-bottom: 80px;
-
-    &:hover {
-      background-color: #fdfdfd;
-      transform: scale(1.02);
-      cursor: pointer;
-      box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
-
-      .jaria-project__info-container__pay-button {
-        color: #BF861A;
-        opacity: 1;
-      }
-
-      &:active {
-        transform: translateY(-5px);
-        box-shadow: 0px 10px 5px 1px #697c8b;
-      }
-    }
   }
 
   &__img {
@@ -94,42 +74,61 @@ export default {
     background-size: cover;
     border-radius: 50%;
     background-position-x: -108px;
+    margin-right: 10px;
   }
 
   &__info-container {
     display: flex;
     flex-direction: column;
-    justify-content: space-between;
-    width: 60%;
+    align-items: row-reverse;
+    width: 100%;
     height: 100%;
-    color: #fff;
+    border: 1px solid var(--primary-color);
+    padding: 15px;
+    background-color: var(--body-color);
+    border-radius: 5px;
+
     &__text-container {
-      text-align: right;
+      text-align: left;
+      color: var(--primary-dark-color);
 
       &__title-container {
-        display: flex;
-        justify-content: space-between;
         margin-bottom: 20px;
+        display: flex;
+        flex-direction: column;
+
+        h3 {
+          color: var(--primary-dark-color);
+        }
 
         .price {
+          width: fit-content;
           font-size: 20px;
-          border: 1px solid;
+          border: 1px solid var(--primary-dark-color);
           padding: 5px 10px;
           border-radius: 5px;
+          color: var(--primary-dark-color);
+          margin-top: 10px;
+        }
+        .price-reverse {
+          align-self: flex-start;
         }
       }
 
       p {
         font-size: 14px;
         font-weight: 300;
-        color: #839eb4;
       }
     }
     &__pay-button {
-      text-align: right;
-      font-size: 30px;
-      opacity: 0;
-      transition: opacity 150ms;
+      font-size: 20px;
+      color: var(--body-color);
+      background-color: var(--primary-color);
+      border: none;
+      width: fit-content;
+      align-self: flex-start;
+      padding: 10px 30px;
+      border-radius: 5px;
     }
   }
   .reverse {
@@ -137,11 +136,20 @@ export default {
 
     .jaria-project__info-container {
       &__text-container {
-        text-align: left;
+        text-align: right;
       }
       &__pay-button {
-        text-align: left;
+        align-self: flex-end;
       }
+      &__text-container__title-container {
+        .price-reverse {
+          align-self: flex-end;
+        }
+      }
+    }
+    .jaria-project__img {
+      margin-right: 0px;
+      margin-left: 10px;
     }
   }
 }

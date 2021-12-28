@@ -1,212 +1,132 @@
 <template>
-  <div class="payment">
-    <h1 class="page-title">Mange tak for jeres støtte</h1>
-    <div class="payment-container">
-      <div class="payment-form-wrapper">
-        <div v-if="!value" class="value-step">
-          <div class="product-select-container">
-            <b :class="{ active: !checked }">en-gang</b>
-            <label class="switch">
-              <input type="checkbox" v-model="checked" />
-              <span class="slider round"></span>
-            </label>
-            <b :class="{ active: checked }">subscription</b>
+  <div class="payment-page-container">
+    <button class="payment-page-back-btn" @click="goBack">
+      <ArrowLeftIcon></ArrowLeftIcon>
+    </button>
+    <div class="payment-page">
+      <div class="payment-page__left">
+        <h2>Jazakumu allahu khairan</h2>
+        <h3>Some realy good Hadeeth about giving</h3>
+      </div>
+      <div class="payment-page__right">
+        <form action="#" class="payment-page__right__form">
+          <select name="paymentType" id="payment-type">
+            <option value="monthly">Monthly</option>
+            <option value="oneTime">One time</option>
+          </select>
+          <input type="text" name="amount" placeholder="Amount" />
+          <select name="cause" id="cause">
+            <option value="cause1">Cause 1</option>
+            <option value="cause2">Cause 2</option>
+          </select>
+          <div class="payment-page__right__form__button">
+            <input type="submit" />
           </div>
-          <div class="input-value-container">
-            <div
-              class="placeholder"
-              :data-placeholder="!checked ? 'DKK' : 'DKK/mdr'"
-            >
-              <input type="text" v-model="inputValue" />
-            </div>
-            <button @click="value = inputValue" :disabled="inputValue < 1">
-              Betal
-            </button>
-          </div>
-        </div>
-        <div v-if="value" class="payment-step">
-          <button @click="value = 0">Tilbage</button>
-          <paymentForm v-if="!checked" :price="inputValue" />
-          <subscriptionPayment v-if="checked" :price="inputValue" />
-        </div>
+        </form>
       </div>
     </div>
   </div>
 </template>
 
 <script>
-import subscriptionPayment from "../components/subscripitonPaymentForm";
-import paymentForm from "../components/paymentForm";
-import axios from "axios";
+import { ArrowLeftIcon } from "@vue-hero-icons/solid";
 export default {
   components: {
-    subscriptionPayment,
-    paymentForm,
-  },
-  data: function () {
-    return {
-      value: 0,
-      inputValue: 0,
-      checked: false,
-    };
-  },
-  methods: {},
-  mounted: function () {
-    this.inputValue = this.$store.state.donationValue;
-    this.checked = this.$store.state.paymentType;
+    ArrowLeftIcon,
   },
   methods: {
-    paymentStatusChange: function (e) {
-      console.log(e.target);
+    goBack() {
+      this.$router.go(-1);
     },
   },
 };
 </script>
 
 <style lang="scss">
-.payment {
-  margin-top: 40px;
-  background-image: linear-gradient(
-      45deg,
-      rgba(78, 195, 205, 0.4),
-      rgba(78, 195, 205, 0.4),
-      rgba(255, 0, 150, 0.3)
-    ),
-    url("../../static/images/payment-background.jpg");
-  background-size: cover;
-  margin: 0;
-  height: 100vh;
+.payment-page-container {
+  background-color: var(--primary-color);
+  padding: 100px;
+  display: flex;
+  flex-direction: column;
+  margin: 0 auto;
 }
-.value-step {
-  .product-select-container {
-    display: flex;
 
-    b {
-      color: #000;
-      margin-top: -7px;
-    }
+.payment-page-back-btn {
+  margin-bottom: 10px;
+  border-radius: 50%;
+  width: 40px;
+  height: 40px;
+  border: 1px solid var(--body-color);
+  background-color: var(--primary-color);
+  cursor: pointer;
 
-    .active {
-      color: #4ec3cd;
-      border-bottom: 1px solid #4ec3cd;
-    }
+  svg {
+    width: 20px;
+    height: 20px;
+    fill: var(--body-color);
   }
 
-  .input-value-container {
-    margin-top: 30px;
+  &:hover {
+    background-color: var(--body-color);
+
+    svg {
+      fill: var(--primary-color);
+    }
+  }
+}
+
+.payment-page {
+  display: flex;
+  background-color: var(--secondary-color);
+  border-radius: 20px;
+
+  &__left {
+    width: 100%;
+    padding: 40px 30px;
+    background-image: linear-gradient(
+        rgba(240, 221, 203, 0.45),
+        rgba(240, 221, 203, 0.45)
+      ),
+      url("../../static/images/payment-bg.png");
+    background-size: cover;
+    border-radius: 20px 0 0 20px;
     display: flex;
     flex-direction: column;
-    align-items: center;
+    justify-content: space-between;
 
+    h2 {
+      font-size: 2.3rem;
+      color: var(--primary-color);
+    }
+  }
+
+  &__right {
+    width: 100%;
+    padding: 120px 30px;
+  }
+
+  &__right__form {
+    display: grid;
+    grid-template-rows: repeat(4, minmax(50px, 1fr));
+    grid-row-gap: 40px;
+
+    select,
     input {
-      margin-bottom: 20px;
-      padding: 10px 10px;
-      border: 1px solid #e4e1e1;
+      border: 1px solid var(--primary-dark-color);
       border-radius: 5px;
-      width: 258px;
-      font-weight: 500;
-      font-size: 20px;
+      padding: 0 10px;
     }
 
-    button {
-      background: none;
-      border: 1px solid #4ec3cd;
-      padding: 10px 35px;
-      border-radius: 5px;
-      color: #000;
+    &__button {
+      display: flex;
+      justify-content: flex-end;
+      input {
+        padding: 10px 20px;
+        background-color: var(--primary-color);
+        color: var(--body-color);
+        border: none;
+      }
     }
   }
-
-  .placeholder {
-    position: relative;
-    display: inline-block;
-  }
-
-  .placeholder::after {
-    position: absolute;
-    right: 10px;
-    top: 7px;
-    content: attr(data-placeholder);
-    pointer-events: none;
-    opacity: 0.6;
-    color: #000;
-  }
-}
-
-.payment-step {
-}
-.payment-container {
-  display: flex;
-  justify-content: flex-end;
-}
-.payment-form-wrapper {
-  margin-right: 100px;
-  padding: 50px;
-  display: flex;
-  background-color: #fff;
-  border-radius: 5px;
-}
-
-.switch {
-  position: relative;
-  display: inline-block;
-  width: 35px;
-  height: 20px;
-  margin: 0 20px;
-}
-
-/* Hide default HTML checkbox */
-.switch input {
-  opacity: 0;
-  width: 0;
-  height: 0;
-}
-
-/* The slider */
-.slider {
-  position: absolute;
-  cursor: pointer;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  background-color: #ccc;
-  -webkit-transition: 0.4s;
-  transition: 0.4s;
-}
-
-.slider:before {
-  position: absolute;
-  content: "";
-  height: 15px;
-  width: 15px;
-  left: 2px;
-  bottom: 3px;
-  background-color: white;
-  -webkit-transition: 0.4s;
-  transition: 0.4s;
-}
-
-// input:checked + .slider {
-//   background-color: #4ec3cd;
-// }
-
-input:focus + .slider {
-  box-shadow: 0 0 1px #4ec3cd;
-}
-
-input:checked + .slider:before {
-  -webkit-transform: translateX(15px);
-  -ms-transform: translateX(15px);
-  transform: translateX(15px);
-}
-
-/* Rounded sliders */
-.slider.round {
-  border-radius: 15px;
-}
-
-.slider.round:before {
-  border-radius: 50%;
 }
 </style>

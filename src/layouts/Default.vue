@@ -10,6 +10,7 @@
         <g-link to="/">Home</g-link>
         <g-link to="/jaria/">Jaria</g-link>
         <g-link to="/wells/">Brønde</g-link>
+        <g-link to="/school/">Skole</g-link>
         <g-link to="/masjid/">Moske</g-link>
         <!-- <g-link :to="`/campaign/[${campaign.node.title}].vue`" v-for="(campaign, index) of campaigns" :key="index">{{campaign.node.title}}</g-link> -->
         <g-link to="/about/">Om os</g-link>

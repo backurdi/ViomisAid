@@ -4,21 +4,27 @@
       Start
     </button>
     <div v-else class="step-wrapper">
-      <h3 v-if="sliderIndex < buildSteps.length">
-        {{ buildSteps[sliderIndex].title }}
+      <h3 v-if="sliderIndex < localBuildSteps.length">
+        {{ localBuildSteps[sliderIndex].title }}
       </h3>
-      <div class="navigation-btn">
-        <button @click="sliderIndex--">Prev</button>
-        <button @click="sliderIndex++">Next</button>
+      <div class="navigation-btn" v-if="sliderIndex < localBuildSteps.length">
+        <button
+          class="prev"
+          @click="sliderIndex--"
+          :disabled="sliderIndex === 0"
+        >
+          Prev
+        </button>
+        <button class="next" @click="incrementSlider">Next</button>
       </div>
       <Slider
-        v-if="sliderIndex < buildSteps.length"
+        v-if="sliderIndex < localBuildSteps.length"
         :autoplay="false"
         :control-btn="false"
         :height="`${
-          buildSteps[sliderIndex]
-            ? Math.ceil(buildSteps[sliderIndex].actions.length / 4) !== 1
-              ? 273 * Math.ceil(buildSteps[sliderIndex].actions.length / 4)
+          localBuildSteps[sliderIndex]
+            ? Math.ceil(localBuildSteps[sliderIndex].actions.length / 4) !== 1
+              ? 273 * Math.ceil(localBuildSteps[sliderIndex].actions.length / 4)
               : 300
             : 300
         }px`"
@@ -26,7 +32,7 @@
       >
         <div
           class="step-container"
-          v-for="(buildStep, index) in buildSteps"
+          v-for="(buildStep, index) in localBuildSteps"
           :key="index"
         >
           <SliderItem>
@@ -34,8 +40,9 @@
               <div
                 v-for="(step, index) in buildStep.actions"
                 :key="index"
-                @click="chooseBox($event, step, sliderIndex, buildStep.type)"
+                @click="chooseBox(step, sliderIndex, buildStep.type)"
                 class="step-container__action"
+                :class="{ chosen: step.chosen }"
               >
                 <p>{{ step.title }}</p>
                 <p>{{ step.value }}</p>
@@ -50,7 +57,7 @@
             Så er din brønd klar, sikre at alt er som det skal være og tryk
             gokend
           </h5>
-          <template v-for="(result, index) in getResult()">
+          <template v-for="(result, index) in resultPageList">
             <div
               v-if="result.value"
               :key="index"
@@ -62,7 +69,7 @@
           </template>
           <div class="result-container__field-total">
             <p>Total</p>
-            <p>{{ value }}</p>
+            <p>{{ totalValue }}</p>
           </div>
           <div class="result-container__button-container">
             <button
@@ -93,18 +100,27 @@ export default {
     SliderItem,
   },
   props: ["buildSteps"],
-  data: function () {
+  data() {
     return {
       buildStarted: false,
-      value: 0,
+      totalValue: 0,
       sliderIndex: 0,
+      resultPageList: [],
       resultArr: [],
+      localBuildSteps: [],
     };
   },
+  created() {
+    this.localBuildSteps = this.buildSteps;
+  },
   methods: {
-    // TODO: Fix UI show chosen box
-    chooseBox(event, step, index, type) {
-      console.log(event);
+    incrementSlider() {
+      this.sliderIndex++;
+      if (this.sliderIndex + 1 > this.localBuildSteps.length) {
+        this.getResult();
+      }
+    },
+    chooseBox(step, index, type) {
       const currentIndex = this.resultArr.find(
         (result) => result.index === index
       );
@@ -112,37 +128,67 @@ export default {
         this.resultArr.indexOf(currentIndex)
       ]?.chosenFields.find((field) => field.title === step.title);
       if (currentIndex) {
-        debugger;
         if (
           currentStep ||
           (type === "Single" && currentIndex.chosenFields.length)
         ) {
+          if (type === "Multi") {
+            const index = currentIndex.chosenFields.indexOf(currentStep);
+            if (index > -1) {
+              currentIndex.chosenFields.splice(index, 1);
+            }
+          }
           currentIndex.chosenFields[
             currentStep ? currentIndex.chosenFields.indexOf(currentStep) : 0
           ] = step;
-          event.target.classList.toggle("chosen");
+          this.setChosenBox(index, step, type);
         } else {
           this.resultArr[
             this.resultArr.indexOf(currentIndex)
           ].chosenFields.push(step);
-          event.target.classList.toggle("chosen");
+          this.setChosenBox(index, step, type);
         }
       } else {
-        event.target.classList.toggle("chosen");
         this.resultArr.push({ index, chosenFields: [step] });
+        this.setChosenBox(index, step, type);
       }
     },
-    isChosen(step, index) {
-      debugger;
-      return;
+    setChosenBox(index, step, indexType) {
+      const action = this.localBuildSteps[index].actions.find(
+        (action) => action.title === step.title
+      );
+      const otherChosen = this.localBuildSteps[index].actions.find(
+        (action) => action.chosen
+      );
+      if (indexType === "Single" && otherChosen) {
+        otherChosen.chosen = false;
+      }
+      if (action.chosen) {
+        this.localBuildSteps[index].actions.splice(
+          this.localBuildSteps[index].actions.indexOf(action),
+          1,
+          { ...action, chosen: false }
+        );
+      } else {
+        this.localBuildSteps[index].actions.splice(
+          this.localBuildSteps[index].actions.indexOf(action),
+          1,
+          { ...action, chosen: true }
+        );
+      }
     },
     getResult() {
-      return this.resultArr.map((result) => result.chosenFields).flat();
+      const resultArr = this.resultArr.map((result) => {
+        return result.chosenFields.flat(2);
+      });
+      if (this.totalValue > 0) this.totalValue = 0;
+      resultArr.flat().forEach((result) => {
+        this.totalValue += result.value;
+      });
+      this.resultPageList = resultArr.flat();
     },
     handleButtonclick() {
-      // console.log(this.price);
-      // @ts-ignore
-      this.createCheckoutSession(this.value).then((data) => {
+      this.createCheckoutSession(this.totalValue).then((data) => {
         this.stripe = Stripe(data.publicKey);
 
         // Call Stripe.js method to redirect to the new Checkout page
@@ -196,10 +242,26 @@ export default {
   padding: 10px 35px;
   border-radius: 5px;
   margin-top: 20px;
+  cursor: pointer;
 }
 
 .step-wrapper {
   margin-top: 20px;
+
+  .navigation-btn {
+    button {
+      border: none;
+      border-radius: 5px;
+      padding: 10px 20px;
+      background-color: var(--body-color);
+      margin: 20px 0;
+      cursor: pointer;
+    }
+
+    .prev {
+      margin-right: 10px;
+    }
+  }
 }
 .step-container {
   margin-top: 20px;
@@ -217,6 +279,7 @@ export default {
 
   &__action {
     background-color: var(--body-color);
+    cursor: pointer;
     padding: 20px;
     height: 200px;
     width: 200px;
@@ -228,7 +291,8 @@ export default {
     color: var(--primary-dark-color);
   }
   .chosen {
-    background-color: black;
+    border: 3px solid var(--primary-color);
+    font-weight: 600;
   }
 }
 .result-container {
@@ -265,6 +329,7 @@ export default {
       padding: 15px 25px;
       border-radius: 5px;
       color: var(--body-color);
+      cursor: pointer;
     }
 
     &__back {

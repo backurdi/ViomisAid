@@ -12,7 +12,7 @@
       <div class="author__top-content__img-container">
         <img
           class="author__top-content__image"
-          src="../../static/images/hero.png"
+          src="@/../static/images/hero.png"
         />
       </div>
     </div>
@@ -50,7 +50,7 @@ export default {
 };
 </script>
 
-<style lang="scss" scoped>
+<style lang="scss">
 .author {
   border-radius: 10px;
   margin-bottom: 40px;

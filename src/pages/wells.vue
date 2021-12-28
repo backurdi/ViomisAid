@@ -16,6 +16,7 @@ export default {
     buildSteps: [
       {
         title: "Type brønd",
+        type: "Single",
         actions: [
           { title: "Hånd pumpe", value: 15000 },
           { title: "Motor pumpe", value: 20000 },
@@ -23,10 +24,7 @@ export default {
       },
       {
         title: "Ekstra",
-        actions: [
-          { title: "Tank + Vandhane station", value: 5000 },
-          { title: "Intet", value: 0 },
-        ],
+        actions: [{ title: "Tank + Vandhane station", value: 5000 }],
       },
     ],
   }),

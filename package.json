@@ -12,7 +12,7 @@
     "@gridsome/source-filesystem": "^0.6.2",
     "@gridsome/transformer-remark": "^0.6.1",
     "@vue-hero-icons/solid": "^1.7.2",
-    "axios": "^0.19.2",
+    "axios": "^0.21.2",
     "gridsome": "^0.7.19",
     "mapbox-gl": "^1.12.0",
     "netlify-cms": "^2.10.55",

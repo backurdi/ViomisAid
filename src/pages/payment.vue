@@ -1,28 +1,32 @@
 <template>
   <div class="payment-page-container">
-    <button class="payment-page-back-btn" @click="goBack">
-      <ArrowLeftIcon></ArrowLeftIcon>
-    </button>
-    <div class="payment-page">
-      <div class="payment-page__left">
-        <h2>Jazakumu allahu khairan</h2>
-        <h3>Some realy good Hadeeth about giving</h3>
-      </div>
-      <div class="payment-page__right">
-        <form action="#" class="payment-page__right__form">
-          <select name="paymentType" id="payment-type">
-            <option value="monthly">Monthly</option>
-            <option value="oneTime">One time</option>
-          </select>
-          <input type="text" name="amount" placeholder="Amount" />
-          <select name="cause" id="cause">
-            <option value="cause1">Cause 1</option>
-            <option value="cause2">Cause 2</option>
-          </select>
-          <div class="payment-page__right__form__button">
-            <input type="submit" />
-          </div>
-        </form>
+    <div class="payment-page-back-btn">
+      <button @click="goBack">
+        <ArrowLeftIcon></ArrowLeftIcon>
+      </button>
+    </div>
+    <div class="payment-page-wrapper">
+      <div class="payment-page">
+        <div class="payment-page__left">
+          <h2>Jazakumu allahu khairan</h2>
+          <h3>Some realy good Hadeeth about giving</h3>
+        </div>
+        <div class="payment-page__right">
+          <form action="#" class="payment-page__right__form">
+            <select name="paymentType" id="payment-type">
+              <option value="monthly">Monthly</option>
+              <option value="oneTime">One time</option>
+            </select>
+            <input type="text" name="amount" placeholder="Amount" />
+            <select name="cause" id="cause">
+              <option value="cause1">Cause 1</option>
+              <option value="cause2">Cause 2</option>
+            </select>
+            <div class="payment-page__right__form__button">
+              <input type="submit" />
+            </div>
+          </form>
+        </div>
       </div>
     </div>
   </div>
@@ -48,36 +52,49 @@ export default {
   padding: 100px;
   display: flex;
   flex-direction: column;
+  align-items: center;
   margin: 0 auto;
 }
 
 .payment-page-back-btn {
-  margin-bottom: 10px;
-  border-radius: 50%;
-  width: 40px;
-  height: 40px;
-  border: 1px solid var(--body-color);
-  background-color: var(--primary-color);
-  cursor: pointer;
+  width: 100%;
+  max-width: 700px;
 
-  svg {
-    width: 20px;
-    height: 20px;
-    fill: var(--body-color);
-  }
-
-  &:hover {
-    background-color: var(--body-color);
+  button {
+    margin-bottom: 10px;
+    border-radius: 50%;
+    width: 40px;
+    height: 40px;
+    border: 1px solid var(--body-color);
+    background-color: var(--primary-color);
+    cursor: pointer;
 
     svg {
-      fill: var(--primary-color);
+      width: 20px;
+      height: 20px;
+      fill: var(--body-color);
+    }
+
+    &:hover {
+      background-color: var(--body-color);
+
+      svg {
+        fill: var(--primary-color);
+      }
     }
   }
+}
+
+.payment-page-wrapper {
+  display: flex;
+  justify-content: center;
 }
 
 .payment-page {
   display: flex;
   background-color: var(--secondary-color);
+  max-width: 700px;
+  justify-content: center;
   border-radius: 20px;
 
   &__left {

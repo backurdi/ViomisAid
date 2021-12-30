@@ -99,7 +99,7 @@ export default {
     Slider,
     SliderItem,
   },
-  props: ["buildSteps"],
+  props: ["buildSteps", "intend"],
   data() {
     return {
       buildStarted: false,
@@ -199,18 +199,27 @@ export default {
           .then(this.handleResult);
       });
     },
-    createCheckoutSession(price) {
+    createCheckoutSession() {
+      const lineItems = this.createLineItems();
       return axios
         .post(
           "http://localhost:3000/v1/payment/getCheckout",
-          {
-            amount: price,
-          },
+          { lineItems, intend: this.intend },
           {
             headers: { "Content-Type": "application/json" },
           }
         )
         .then(this.handleFetchResult);
+    },
+    createLineItems() {
+      return this.resultArr
+        .map((result) =>
+          result.chosenFields.map((chosenField) => ({
+            price: chosenField.priceId,
+            quantity: 1,
+          }))
+        )
+        .flat();
     },
     handleFetchResult: (result) => {
       if (result.status !== 200) {

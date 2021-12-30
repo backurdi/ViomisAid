@@ -49,6 +49,7 @@ query subscription_projects {
 import Logo from "~/components/Logo.vue";
 // import ToggleTheme from "~/components/ToggleTheme.vue";
 import DonerButton from "../components/primitives/donerButton";
+import { mapActions, mapState } from "vuex";
 
 export default {
   props: {
@@ -64,8 +65,13 @@ export default {
       campaigns: [],
     };
   },
-  mounted: function () {
+  async mounted() {
+    await this.$store.dispatch("getCauses");
     this.campaigns = this.$static.Container.edges;
+    console.log(this.$store.state);
+  },
+  computed: {
+    ...mapState(["causes"]),
   },
 };
 </script>

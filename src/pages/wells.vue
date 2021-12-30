@@ -2,7 +2,7 @@
   <Layout>
     <div class="build-container">
       <h1>Doner en brønd</h1>
-      <buildForm :buildSteps="buildSteps"></buildForm>
+      <buildForm :buildSteps="buildSteps" intend="Brønd"></buildForm>
     </div>
   </Layout>
 </template>
@@ -18,13 +18,27 @@ export default {
         title: "Type brønd",
         type: "Single",
         actions: [
-          { title: "Hånd pumpe", value: 15000 },
-          { title: "Motor pumpe", value: 20000 },
+          {
+            title: "Hånd pumpe",
+            value: 15000,
+            priceId: "price_1KCTyEE1OcUYppSvi6WV4VT1",
+          },
+          {
+            title: "Motor pumpe",
+            value: 20000,
+            priceId: "price_1KCTyVE1OcUYppSvWR0kh1jB",
+          },
         ],
       },
       {
         title: "Ekstra",
-        actions: [{ title: "Tank + Vandhane station", value: 5000 }],
+        actions: [
+          {
+            title: "Tank + Vandhane station",
+            value: 5000,
+            priceId: "price_1KCTyrE1OcUYppSvFTrXzpMJ",
+          },
+        ],
       },
     ],
   }),

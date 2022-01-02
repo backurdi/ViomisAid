@@ -40,13 +40,9 @@ export default {
   data: function () {
     return {};
   },
-  mounted: function () {
-    console.log(this.jariaData);
-  },
   methods: {
     goToDonationPage: function () {
-      this.$store.dispatch("updatePaymentValueState", this.jariaData.price);
-      this.$store.dispatch("updatePaymentTypeState", true);
+      this.$store.commit("setChosenCharity", this.jariaData);
       this.$router.push("/payment");
     },
   },
@@ -70,7 +66,6 @@ export default {
   &__img {
     width: 200px;
     height: 200px;
-    background-image: url(/assets/img/hero.jpg);
     background-size: cover;
     border-radius: 50%;
     background-position-x: -108px;

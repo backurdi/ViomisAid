@@ -12,7 +12,6 @@
         <g-link to="/wells/">Brønde</g-link>
         <g-link to="/school/">Skole</g-link>
         <g-link to="/masjid/">Moske</g-link>
-        <!-- <g-link :to="`/campaign/[${campaign.node.title}].vue`" v-for="(campaign, index) of campaigns" :key="index">{{campaign.node.title}}</g-link> -->
         <g-link to="/about/">Om os</g-link>
         <DonerButton :donationValue="100" class="doner" />
         <DonerButton :donationValue="100" class="zakat" buttonText="Zakat" />
@@ -34,22 +33,22 @@
 
 <static-query>
 query subscription_projects {
-	Container: allCampaign(sortBy: "date") {
+	Causes: allSubscriptionProjects(sortBy: "date") {
     edges {
       node {
-        title,
-        description,
-        defaultPrice,
-        camaignImage
+        jaria_image
+        title
+        description
+        price
+        price_id
       }
     }}}
   </static-query>
 
 <script>
+import { mapState } from "vuex";
 import Logo from "~/components/Logo.vue";
-// import ToggleTheme from "~/components/ToggleTheme.vue";
 import DonerButton from "../components/primitives/donerButton";
-import { mapActions, mapState } from "vuex";
 
 export default {
   props: {
@@ -65,10 +64,11 @@ export default {
       campaigns: [],
     };
   },
-  async mounted() {
-    await this.$store.dispatch("getCauses");
-    this.campaigns = this.$static.Container.edges;
-    console.log(this.$store.state);
+  mounted() {
+    this.campaigns = this.$static.Causes.edges.map((cause) => cause.node);
+    if (!this.causes.length) {
+      this.$store.commit("setCauses", this.campaigns);
+    }
   },
   computed: {
     ...mapState(["causes"]),

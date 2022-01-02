@@ -3,9 +3,9 @@
     <h1 class="page-title">Gør en vedvarende forskel</h1>
     <div class="jaria-container">
       <jariaProject
-        v-for="(jariaProjectData, i) of jariaProjectsData"
+        v-for="(jariaProjectData, i) of causes"
         :key="i"
-        :jariaData="jariaProjectData.node"
+        :jariaData="jariaProjectData"
         :index="i + 1"
       />
       <customJaria />
@@ -13,41 +13,24 @@
   </Layout>
 </template>
 
-<static-query>
-query subscription_projects {
-	Container: allSubscriptionProjects(sortBy: "date") {
-    edges {
-      node {
-        jaria_image
-        title
-        description
-        price
-      }
-    }}}
-</static-query>
-
 <script>
 import jariaProject from "../components/jariaProject";
 import customJaria from "../components/customJaria";
-import axios from "axios";
+import { mapState } from "vuex";
 
 export default {
   components: {
     jariaProject,
     customJaria,
   },
-
   data: function () {
     return {
       jariaProjectsData: {},
     };
   },
-
-  mounted: function () {
-    this.jariaProjectsData = this.$static.Container.edges;
+  computed: {
+    ...mapState(["causes"]),
   },
-
-  methods: {},
 };
 </script>
 

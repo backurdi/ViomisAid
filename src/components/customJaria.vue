@@ -3,7 +3,7 @@
     <div class="custom-jaria">
       <h3>Vælg selv hvor meget du vil give</h3>
       <rangeSlider @input-change="inputChange" />
-      <DonerButton :donationValue="inputData" paymentType="Monthly" />
+      <DonerButton :donationValue="inputData" paymentType="monthly" />
     </div>
   </div>
 </template>

@@ -14,35 +14,17 @@ export default function (Vue, { router, head, isClient, appOptions }) {
   Vue.use(Vuex);
   appOptions.store = new Vuex.Store({
     state: {
-      donationValue: 0,
-      paymentType: false,
+      charity: {},
       causes: [],
     },
     mutations: {
-      donationValue(state, donationValue) {
-        state.donationValue = donationValue;
-      },
-      paymentType(state, paymentType) {
-        state.paymentType = paymentType;
-      },
       setCauses(state, causes) {
         state.causes = causes;
       },
-    },
-    actions: {
-      updatePaymentValueState({ commit }, paymentState) {
-        commit("donationValue", paymentState);
-      },
-      updatePaymentTypeState({ commit }, paymentState) {
-        commit("paymentType", paymentState);
-      },
-      async getCauses({ commit }) {
-        await axios
-          .get("http://localhost:3000/v1/payment/products")
-          .then((causes) => {
-            commit("setCauses", causes.data.data);
-          });
+      setChosenCharity(state, charity) {
+        state.charity = charity;
       },
     },
+    actions: {},
   });
 }

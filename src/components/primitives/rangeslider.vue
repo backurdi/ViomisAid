@@ -59,7 +59,7 @@ export default {
   top: -40px;
   line-height: 55px;
   z-index: 2;
-  color: #fff;
+  color: var(--primary-color);
   transform-origin: bottom;
   transition: transform 0.3s ease-in-out;
 }
@@ -68,8 +68,8 @@ export default {
   content: "";
   height: 100%;
   width: 100%;
-  background: var(--body-color);
-  border: 3px solid #fff;
+  background: var(--primary-color);
+  border: 3px solid var(--primary-color);
   z-index: -1;
   left: 50%;
   transform: translateX(-50%) rotate(45deg);
@@ -88,7 +88,7 @@ export default {
 .field .value {
   position: absolute;
   font-size: 18px;
-  color: var(--body-color);
+  color: var(--primary-color);
   font-weight: 600;
 }
 .field .value.left {
@@ -111,10 +111,9 @@ export default {
   -webkit-appearance: none;
   width: 20px;
   height: 20px;
-  background: red;
   border-radius: 50%;
-  background: var(--body-color);
-  border: 1px solid var(--bg-color);
+  background: var(--primary-color);
+  border: 1px solid var(--body-color);
   cursor: pointer;
 }
 .range input::-moz-range-thumb {

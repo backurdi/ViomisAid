@@ -19,17 +19,40 @@
     <div class="quick-donation">
       <h4>Quick donation</h4>
       <form action="#" class="quick-donation__form">
-        <select name="paymentType" id="payment-type">
+        <select
+          name="paymentType"
+          id="payment-type"
+          v-model="quiclDonationFields.type"
+        >
           <option value="monthly">Monthly</option>
           <option value="oneTime">One time</option>
         </select>
-        <input type="text" name="amount" placeholder="Amount" />
-        <select name="cause" id="cause">
-          <option value="cause1">Cause 1</option>
-          <option value="cause2">Cause 2</option>
+        <input
+          type="text"
+          name="amount"
+          placeholder="Amount"
+          v-model="quiclDonationFields.price"
+        />
+        <select name="cause" id="cause" v-model="quiclDonationFields.title">
+          <option selected value="">Select cause</option>
+          <option
+            v-for="(cause, index) in causes"
+            :key="index"
+            :value="cause.title"
+          >
+            {{ cause.title }}
+          </option>
         </select>
         <div class="submit">
-          <input type="submit" class="submit__btn" />
+          <button
+            class="submit__btn"
+            @click.prevent="quickDonate"
+            :disabled="
+              !quiclDonationFields.title.length || !quiclDonationFields.price
+            "
+          >
+            Donate
+          </button>
         </div>
       </form>
     </div>
@@ -45,8 +68,26 @@ query {
 </static-query>
 
 <script>
+import { mapMutations, mapState } from "vuex";
 export default {
   props: ["showTitle"],
+  data: () => ({
+    quiclDonationFields: {
+      type: "monthly",
+      price: 0,
+      title: "",
+    },
+  }),
+  computed: {
+    ...mapState(["causes"]),
+  },
+  methods: {
+    ...mapMutations(["setChosenCharity"]),
+    quickDonate() {
+      this.setChosenCharity(this.quiclDonationFields);
+      this.$router.push("/payment");
+    },
+  },
 };
 </script>
 
@@ -169,6 +210,11 @@ export default {
           border-radius: 5px;
           background-color: var(--primary-color);
           color: var(--body-color);
+
+          &:disabled {
+            background-color: var(--primary-light-color);
+            color: gray;
+          }
         }
       }
     }

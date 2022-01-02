@@ -48,7 +48,6 @@ export default {
     };
   },
   async mounted() {
-    console.log(this.$static.container);
     mapboxgl.accessToken = this.accessToken;
 
     const map = new mapboxgl.Map({
@@ -61,7 +60,6 @@ export default {
     this.locations = this.createLocationObj();
 
     this.locations.then((mappedLocationsArray) => {
-      console.log(this.mappedLocationsArray);
       this.getLocationsAndPassIntoMap(map, mappedLocationsArray);
     });
 

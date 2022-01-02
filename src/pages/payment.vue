@@ -13,17 +13,31 @@
         </div>
         <div class="payment-page__right">
           <form action="#" class="payment-page__right__form">
-            <select name="paymentType" id="payment-type">
+            <select
+              name="paymentType"
+              id="payment-type"
+              v-model="charityToPay.type"
+            >
               <option value="monthly">Monthly</option>
               <option value="oneTime">One time</option>
             </select>
-            <input type="text" name="amount" placeholder="Amount" />
-            <select name="cause" id="cause">
-              <option value="cause1">Cause 1</option>
-              <option value="cause2">Cause 2</option>
+            <input
+              type="text"
+              name="amount"
+              placeholder="Amount"
+              :value="charityToPay ? charityToPay.price : ''"
+            />
+            <select name="cause" id="cause" v-model="charityToPay.title">
+              <option
+                v-for="(cause, index) in causes"
+                :value="cause.title"
+                :key="index"
+              >
+                {{ cause.title }}
+              </option>
             </select>
             <div class="payment-page__right__form__button">
-              <input type="submit" />
+              <button @click.prevent="handleButtonclick">Donate</button>
             </div>
           </form>
         </div>
@@ -34,13 +48,81 @@
 
 <script>
 import { ArrowLeftIcon } from "@vue-hero-icons/solid";
+import { mapState } from "vuex";
+import axios from "axios";
 export default {
   components: {
     ArrowLeftIcon,
   },
+  computed: {
+    ...mapState(["causes", "charity"]),
+  },
+  data: function () {
+    return {
+      charityToPay: { type: "monthly", price: 0, cause: "" },
+    };
+  },
+  mounted() {
+    this.charityToPay = this.charity;
+    if (!this.charity.type) {
+      this.charityToPay.type = "monthly";
+    }
+    console.log(this.charityToPay);
+    console.log(this.causes);
+  },
   methods: {
     goBack() {
       this.$router.go(-1);
+    },
+    handleButtonclick() {
+      this.createCheckoutSession().then((data) => {
+        this.stripe = Stripe(data.publicKey);
+
+        // Call Stripe.js method to redirect to the new Checkout page
+        this.stripe
+          .redirectToCheckout({
+            sessionId: data.sessionId,
+          })
+          .then(this.handleResult);
+      });
+    },
+    createCheckoutSession() {
+      return axios
+        .post(
+          "http://localhost:3000/v1/payment/getCheckout",
+          {
+            lineItems: [
+              {
+                quantity: +this.charityToPay.price,
+                price: "price_1ImegPE1OcUYppSvFUztiIJi",
+              },
+            ],
+            intend: this.charityToPay.title,
+            mode: "subscription",
+          },
+          {
+            headers: { "Content-Type": "application/json" },
+          }
+        )
+        .then(this.handleFetchResult);
+    },
+    handleFetchResult: (result) => {
+      if (result.status !== 200) {
+        return result
+          .json()
+          .then(function (json) {
+            if (json.error && json.error.message) {
+              throw new Error(
+                result.url + " " + result.status + " " + json.error.message
+              );
+            }
+          })
+          .catch(function (err) {
+            this.showErrorMessage(err);
+            throw err;
+          });
+      }
+      return window.location.replace(result.data.url);
     },
   },
 };

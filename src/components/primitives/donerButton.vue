@@ -3,16 +3,28 @@
 </template>
 
 <script>
+import { mapMutations, mapState } from "vuex";
 export default {
   props: {
     donationValue: Number,
     paymentType: String,
     buttonText: { type: String, default: "Doner" },
   },
+  computed: {
+    ...mapState(["causes"]),
+  },
   methods: {
+    ...mapMutations(["setChosenCharity"]),
     goToDonationPage: function () {
-      this.$store.dispatch("updatePaymentValueState", this.donationValue);
-      this.$store.dispatch("updatePaymentTypeState", this.paymentType);
+      const donation = this.causes.find(
+        (cause) => cause.title === "Valgfri donation"
+      );
+      this.setChosenCharity({
+        price: this.donationValue,
+        type: this.paymentType,
+        title: donation.title,
+        priceId: donation.priceId,
+      });
       this.$router.push("/payment");
     },
   },

@@ -132,7 +132,7 @@ export default {
           currentStep ||
           (type === "Single" && currentIndex.chosenFields.length)
         ) {
-          if (type === "Multi") {
+          if (!type) {
             const index = currentIndex.chosenFields.indexOf(currentStep);
             if (index > -1) {
               currentIndex.chosenFields.splice(index, 1);

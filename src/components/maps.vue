@@ -10,7 +10,7 @@
         v-model="zipCode"
       />
     </div>
-    <div id="mapContainer" class="basemap"></div>
+    <div id="mapContainer" class="basemap mapboxgl-map"></div>
   </div>
 </template>
 

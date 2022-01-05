@@ -25,6 +25,14 @@ export default function (Vue, { router, head, isClient, appOptions }) {
         state.charity = charity;
       },
     },
-    actions: {},
+    actions: {
+      fetchZipCode({ commit }, zipCode) {
+        return axios
+          .get(`https://api.dataforsyningen.dk/postnumre?nr=${zipCode}`)
+          .then((zipCodeInfo) => {
+            return zipCodeInfo.data;
+          });
+      },
+    },
   });
 }

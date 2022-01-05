@@ -1,9 +1,14 @@
 <template>
   <div class="map-container">
-    <h3>Donere dit tøj</h3>
+    <h2>Donere dit tøj</h2>
     <div class="zip-code-container">
       <p>Indtast postnummer</p>
-      <input type="text" placeholder="fx. 2200" />
+      <input
+        type="number"
+        placeholder="fx. 2200"
+        @keyup="getZipCode"
+        v-model="zipCode"
+      />
     </div>
     <div id="mapContainer" class="basemap"></div>
   </div>
@@ -24,14 +29,17 @@ query Container {
 <script>
 import mapboxgl from "mapbox-gl";
 import axios from "axios";
+import { mapActions } from "vuex";
 
 export default {
   name: "BaseMap",
   data() {
     return {
+      zipCode: 2200,
       accessToken:
         "pk.eyJ1IjoiYmFja3VyZGkiLCJhIjoiY2swZG0wYms2MDhwZTNjbjRkZ2I5bXprYSJ9.2zY5VTZ0IS1qlUsbyJ0weQ",
       map: {},
+      markers: "",
       locations: [
         { add: "Hadsundvej 12E Rødovre", text: "Åben fra 10-14" },
         { add: "Baggesensgade 16 2200 Kbh", text: "Åbent fra 10-14" },
@@ -50,17 +58,16 @@ export default {
   async mounted() {
     mapboxgl.accessToken = this.accessToken;
 
-    const map = new mapboxgl.Map({
+    this.locations = this.createLocationObj();
+
+    this.map = new mapboxgl.Map({
       container: "mapContainer",
       style: "mapbox://styles/mapbox/streets-v11",
       center: [12.559033, 55.687359],
       zoom: 10,
     });
-
-    this.locations = this.createLocationObj();
-
     this.locations.then((mappedLocationsArray) => {
-      this.getLocationsAndPassIntoMap(map, mappedLocationsArray);
+      this.getLocationsAndPassIntoMap(this.map, mappedLocationsArray);
     });
 
     const geolocate = new mapboxgl.GeolocateControl({
@@ -70,13 +77,14 @@ export default {
       trackUserLocation: true,
     });
 
-    map.addControl(geolocate, "top-right");
+    this.map.addControl(geolocate, "top-right");
 
     const nav = new mapboxgl.NavigationControl();
-    map.addControl(nav, "top-right");
+    this.map.addControl(nav, "top-right");
   },
 
   methods: {
+    ...mapActions(["fetchZipCode"]),
     getLocationsAndPassIntoMap: function (map, locationsData) {
       locationsData.forEach((location) => {
         // create a HTML element for each feature
@@ -84,7 +92,7 @@ export default {
         el.className = "marker";
 
         // make a marker for each feature and add to the map
-        new mapboxgl.Marker(el)
+        this.markers = new mapboxgl.Marker(el)
           .setLngLat(location.geometry.coordinates)
           .setPopup(
             new mapboxgl.Popup({ offset: 25 }) // add popups
@@ -124,8 +132,15 @@ export default {
       );
       return mappedLocations;
     },
-    findCoordinatesOnZipCode() {
-      const zipEndPoint = `https://api.dataforsyningen.dk/postnumre?nr=${23122}`;
+    getZipCode() {
+      if (this.zipCode.length === 4) {
+        this.fetchZipCode(this.zipCode).then((zipData) => {
+          this.map.flyTo({
+            center: zipData[0].visueltcenter,
+            essential: true,
+          });
+        });
+      }
     },
   },
 };
@@ -137,9 +152,10 @@ export default {
   background-color: var(--primary-color);
   text-align: center;
 
-  h3 {
+  h2 {
     color: var(--body-color);
     margin-bottom: 10px;
+    font-size: 40px;
   }
 }
 
@@ -155,7 +171,8 @@ export default {
   }
 
   input {
-    height: 40px;
+    height: 25px;
+    width: 100px;
     border: none;
     padding-left: 10px;
     border-radius: 20px;
@@ -201,5 +218,17 @@ export default {
 
 .mapboxgl-user-location-accuracy-circle {
   z-index: 10;
+}
+
+/* Chrome, Safari, Edge, Opera */
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+/* Firefox */
+input[type="number"] {
+  -moz-appearance: textfield;
 }
 </style>

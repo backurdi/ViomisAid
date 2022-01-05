@@ -1,12 +1,10 @@
 <template>
   <div class="jaria-project">
     <div class="jaria-project__wrapper" :class="{ reverse: index % 2 === 0 }">
-      <g-image
-        alt="Cover image"
-        v-if="jariaData.jaria_image"
+      <div
         class="jaria-project__img"
-        :src="jariaData.jaria_image"
-      />
+        :style="{ 'background-image': `url(${jariaData.jaria_image})` }"
+      ></div>
       <div class="jaria-project__info-container">
         <div class="jaria-project__info-container__text-container">
           <div
@@ -64,11 +62,12 @@ export default {
   }
 
   &__img {
-    width: 200px;
+    width: 35%;
+    max-width: 200px;
+    min-width: 200px;
     height: 200px;
     background-size: cover;
     border-radius: 50%;
-    background-position-x: -108px;
     margin-right: 10px;
   }
 

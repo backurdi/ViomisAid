@@ -5,8 +5,8 @@
         <div class="value left">0</div>
         <input
           type="range"
-          min="10"
-          max="1000"
+          min="1"
+          max="10000"
           value="100"
           steps="1"
           v-model="sliderValue"

@@ -93,8 +93,8 @@ export default {
           {
             lineItems: [
               {
-                quantity: +this.charityToPay.price,
-                price: "price_1ImegPE1OcUYppSvFUztiIJi",
+                price: this.charityToPay.price_id,
+                quantity: 1,
               },
             ],
             intend: this.charityToPay.title,

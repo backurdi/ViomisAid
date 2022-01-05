@@ -119,7 +119,7 @@ export default {
           return {
             type: "Feature",
             properties: {
-              title: `<a href="#">${location.node.add}</a>`,
+              title: `<a href="https://www.google.com/maps/search/?api=1&query=1200${location.node.add}">${location.node.add}</a>`,
               description: `<strong>${location.node.open}</strong>`,
               icon: "bakery",
             },
@@ -207,8 +207,10 @@ export default {
   font-family: "Open Sans", sans-serif;
 
   h3 {
-    margin: 0;
-    color: #000;
+    a {
+      color: var(--primary-color);
+      text-decoration: none;
+    }
   }
 
   p {

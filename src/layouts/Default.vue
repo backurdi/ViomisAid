@@ -9,9 +9,17 @@
         <!-- <ToggleTheme /> -->
         <g-link to="/">Home</g-link>
         <g-link to="/jaria/">Jaria</g-link>
-        <g-link to="/wells/">Brønde</g-link>
-        <g-link to="/school/">Skole</g-link>
-        <g-link to="/masjid/">Moske</g-link>
+        <div class="dropdown-container">
+          <div class="dropdown">
+            <p class="dropbtn">Byg</p>
+            <div class="dropdown-content">
+              <g-link to="/wells/">Brønde</g-link>
+              <g-link to="/school/">Skole</g-link>
+              <g-link to="/masjid/">Moske</g-link>
+            </div>
+          </div>
+          <ChevronDownIcon class="arrow"></ChevronDownIcon>
+        </div>
         <g-link to="/about/">Om os</g-link>
         <DonerButton :donationValue="100" class="doner" />
         <DonerButton :donationValue="100" class="zakat" buttonText="Zakat" />
@@ -46,6 +54,7 @@ query subscription_projects {
   </static-query>
 
 <script>
+import { ChevronDownIcon } from "@vue-hero-icons/solid";
 import { mapState } from "vuex";
 import Logo from "~/components/Logo.vue";
 import DonerButton from "../components/primitives/donerButton";
@@ -58,6 +67,7 @@ export default {
     Logo,
     // ToggleTheme,
     DonerButton,
+    ChevronDownIcon,
   },
   data: function () {
     return {
@@ -142,5 +152,59 @@ export default {
   > span {
     margin: 0 0.35em;
   }
+}
+
+.dropdown-container {
+  display: flex;
+  justify-content: center;
+  cursor: default;
+}
+
+.arrow {
+  margin-top: 5px;
+}
+
+/* Dropdown Button */
+.dropbtn {
+  background-color: transparent;
+  margin: 0;
+  color: white;
+  font-size: 20px;
+  border: none;
+}
+
+/* The container <div> - needed to position the dropdown content */
+.dropdown {
+  position: relative;
+  display: inline-block;
+}
+
+/* Dropdown Content (Hidden by Default) */
+.dropdown-content {
+  display: none;
+  position: absolute;
+  background-color: #f1f1f1;
+  min-width: 160px;
+  box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
+  z-index: 1;
+}
+
+/* Links inside the dropdown */
+.dropdown-content a {
+  color: black;
+  padding: 12px 16px;
+  text-decoration: none;
+  display: block;
+}
+
+/* Change color of dropdown links on hover */
+.dropdown-content a:hover {
+  background-color: var(--primary-color);
+  color: var(--body-color);
+}
+
+/* Show the dropdown menu on hover */
+.dropdown-container:hover .dropdown-content {
+  display: block;
 }
 </style>
